@@ -1,7 +1,7 @@
 {
   "name": "@bekim_2121/ethiopian-datepicker",
-  "version": "1.0.3",
-  "description": "A professional, accessible Ethiopian (Ge'ez) calendar date picker with bilingual support (Amharic/English), dark mode, and holiday highlighting",
+  "version": "1.0.5",
+  "description": "A professional, accurate Ethiopian (Ge'ez) calendar date picker with bilingual support (Amharic/English), dark mode, and holiday highlighting",
   "main": "dist/ethiopian-datepicker.js",
   "style": "dist/ethiopian-datepicker.css",
   "files": [
@@ -9,8 +9,7 @@
     "README.md",
     "LICENSE"
   ],
-  "scripts": {
-  },
+  "scripts": {},
   "keywords": [
     "ethiopian",
     "calendar",
