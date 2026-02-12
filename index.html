@@ -4,12 +4,49 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ethiopian Date Picker - Demo</title>
+  <title>Ethiopian Date Picker | Professional Documentation & Demo</title>
+  <!-- Google Fonts: Inter for professional UI -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap"
+    rel="stylesheet">
 
-  <!-- Date Picker Styles -->
+  <!-- Date Picker Styles (Local) -->
   <link rel="stylesheet" href="css/datepicker.css">
 
   <style>
+    :root {
+      /* Light Theme Tokens */
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --bg: #ffffff;
+      --sidebar-bg: #f8fafc;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --code-bg: #f1f5f9;
+      --code-text: #1e293b;
+      --accent-green: #078930;
+      --accent-yellow: #facc15;
+      --accent-red: #ef4444;
+      --header-height: 64px;
+      --sidebar-width: 280px;
+      --max-content: 800px;
+    }
+
+    .dark {
+      /* Dark Theme Tokens */
+      --bg: #0f172a;
+      --sidebar-bg: #1e293b;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border: #334155;
+      --code-bg: #1e293b;
+      --code-text: #e2e8f0;
+      --primary: #3b82f6;
+    }
+
     * {
       margin: 0;
       padding: 0;
@@ -17,509 +54,755 @@
     }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-      background: #f5f7fa;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background-color: var(--bg);
+      color: var(--text-main);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* --- Layout --- */
+
+    .app-container {
+      display: flex;
       min-height: 100vh;
-      padding: 2rem 1rem;
     }
 
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
+    /* Top Header */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: var(--header-height);
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      backdrop-filter: blur(8px);
+      background-color: rgba(255, 255, 255, 0.8);
     }
 
-    /* Clean Header */
-    .header {
-      text-align: center;
-      margin-bottom: 3rem;
-      padding: 2rem 1rem;
+    .dark header {
+      background-color: rgba(15, 23, 42, 0.8);
     }
 
-    .header h1 {
-      font-size: 2.5rem;
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
       font-weight: 700;
-      color: #1a202c;
-      margin-bottom: 0.5rem;
+      font-size: 1.25rem;
+      color: var(--text-main);
+      text-decoration: none;
     }
 
-    .header .flag-accent {
-      width: 120px;
-      height: 4px;
-      background: linear-gradient(90deg, #078930 0%, #078930 33%, #FCDD09 33%, #FCDD09 66%, #DA121A 66%, #DA121A 100%);
-      margin: 1rem auto;
+    .logo-flag {
+      width: 24px;
+      height: 18px;
+      background: linear-gradient(to bottom, var(--accent-green) 33.3%, var(--accent-yellow) 33.3%, var(--accent-yellow) 66.6%, var(--accent-red) 66.6%);
       border-radius: 2px;
     }
 
-    .header .subtitle {
-      font-size: 1.125rem;
-      color: #4a5568;
-      font-weight: 400;
-    }
-
-    /* Controls Section */
-    .controls {
-      background: white;
-      border-radius: 12px;
-      padding: 2rem;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-      margin-bottom: 2rem;
-    }
-
-    .controls h2 {
-      font-size: 1.25rem;
-      font-weight: 600;
-      color: #2d3748;
-      margin-bottom: 1.5rem;
-    }
-
-    .control-group {
+    .header-actions {
       display: flex;
-      gap: 0.75rem;
-      flex-wrap: wrap;
-    }
-
-    /* Clean Buttons */
-    .btn {
-      padding: 0.75rem 1.25rem;
-      border-radius: 8px;
-      font-weight: 500;
-      font-size: 0.9375rem;
-      cursor: pointer;
-      transition: all 0.2s;
-      border: none;
-      font-family: inherit;
-    }
-
-    .btn-primary {
-      background: #3b82f6;
-      color: white;
-    }
-
-    .btn-primary:hover {
-      background: #2563eb;
-    }
-
-    .btn-secondary {
-      background: #e5e7eb;
-      color: #374151;
-    }
-
-    .btn-secondary:hover {
-      background: #d1d5db;
-    }
-
-    .info-box {
-      background: #eff6ff;
-      border-left: 3px solid #3b82f6;
-      padding: 1rem;
-      border-radius: 6px;
-      margin-top: 1rem;
-    }
-
-    .info-box h4 {
-      font-size: 0.875rem;
-      font-weight: 600;
-      color: #1e40af;
-      margin-bottom: 0.5rem;
-    }
-
-    .info-box p {
-      font-size: 0.875rem;
-      color: #1e3a8a;
-      margin: 0;
-    }
-
-    /* Demo Grid */
-    .demo-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      align-items: center;
       gap: 1.5rem;
+    }
+
+    /* Sidebar Navigation */
+    aside.sidebar {
+      width: var(--sidebar-width);
+      background: var(--sidebar-bg);
+      border-right: 1px solid var(--border);
+      padding: 2rem 1.5rem;
+      position: fixed;
+      top: var(--header-height);
+      bottom: 0;
+      overflow-y: auto;
+      z-index: 900;
+    }
+
+    .nav-group {
       margin-bottom: 2rem;
     }
 
-    .demo-card {
-      background: white;
+    .nav-title {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+      padding-left: 0.5rem;
+    }
+
+    .nav-link {
+      display: block;
+      padding: 0.5rem 0.75rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.9375rem;
+      border-radius: 6px;
+      transition: all 0.2s;
+      margin-bottom: 0.125rem;
+    }
+
+    .nav-link:hover {
+      color: var(--primary);
+      background: rgba(37, 99, 235, 0.05);
+    }
+
+    .nav-link.active {
+      color: var(--primary);
+      background: rgba(37, 99, 235, 0.1);
+      font-weight: 500;
+    }
+
+    /* Main Content */
+    main.content {
+      margin-left: var(--sidebar-width);
+      flex: 1;
+      padding: calc(var(--header-height) + 3rem) 3rem 4rem;
+      max-width: calc(var(--sidebar-width) + var(--max-content) + 100px);
+    }
+
+    article {
+      max-width: var(--max-content);
+      margin: 0 auto;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      letter-spacing: -0.02em;
+    }
+
+    .subtitle {
+      font-size: 1.25rem;
+      color: var(--text-muted);
+      margin-bottom: 3rem;
+    }
+
+    section {
+      padding-top: 4rem;
+      margin-top: -3rem;
+      /* Offset for internal links */
+      margin-bottom: 4rem;
+    }
+
+    h2 {
+      font-size: 1.875rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
+      letter-spacing: -0.01em;
+    }
+
+    h3 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin: 2.5rem 0 1rem;
+    }
+
+    p {
+      margin-bottom: 1.25rem;
+      color: var(--text-main);
+      opacity: 0.9;
+    }
+
+    /* Components */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .feature-card {
+      padding: 1.5rem;
+      border: 1px solid var(--border);
       border-radius: 12px;
-      padding: 2rem;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-      border: 1px solid #e5e7eb;
-      transition: box-shadow 0.2s;
+      background: var(--bg);
+      transition: transform 0.2s, box-shadow 0.2s;
     }
 
-    .demo-card:hover {
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    .feature-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
     }
 
-    .demo-card h3 {
+    .feature-icon {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .feature-card h4 {
       font-size: 1.125rem;
       font-weight: 600;
-      color: #1a202c;
       margin-bottom: 0.5rem;
     }
 
-    .demo-card p {
-      color: #6b7280;
-      font-size: 0.9375rem;
-      margin-bottom: 1.5rem;
+    .code-container {
+      position: relative;
+      margin: 1.5rem 0;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #1e293b;
+    }
+
+    .code-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem 1rem;
+      background: #0f172a;
+      border-bottom: 1px solid #334155;
+      color: #94a3b8;
+      font-size: 0.75rem;
+      font-family: 'Fira Code', monospace;
+    }
+
+    pre {
+      padding: 1.25rem;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.9rem;
+      overflow-x: auto;
+      color: #e2e8f0;
       line-height: 1.6;
     }
 
-    /* Form Elements */
+    .copy-btn {
+      background: #334155;
+      color: #cbd5e1;
+      border: none;
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.7rem;
+      transition: all 0.2s;
+    }
+
+    .copy-btn:hover {
+      background: #475569;
+      color: #f8fafc;
+    }
+
+    .table-wrap {
+      width: 100%;
+      overflow-x: auto;
+      margin: 2rem 0;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.9375rem;
+    }
+
+    th {
+      background: var(--sidebar-bg);
+      padding: 0.75rem 1rem;
+      font-weight: 600;
+      color: var(--text-main);
+      border-bottom: 1px solid var(--border);
+    }
+
+    td {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-muted);
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 0.125rem 0.625rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      background: rgba(37, 99, 235, 0.1);
+      color: var(--primary);
+    }
+
+    .alert {
+      padding: 1rem 1.25rem;
+      border-radius: 12px;
+      margin: 1.5rem 0;
+      display: flex;
+      gap: 1rem;
+      border: 1px solid;
+    }
+
+    .alert-info {
+      background: #eff6ff;
+      border-color: #bfdbfe;
+      color: #1e40af;
+    }
+
+    .dark .alert-info {
+      background: rgba(59, 130, 246, 0.1);
+      border-color: rgba(59, 130, 246, 0.2);
+      color: #60a5fa;
+    }
+
+    /* Demo Specific Styles */
+    .demo-section {
+      background: var(--sidebar-bg);
+      padding: 2.5rem;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      margin: 2rem 0;
+    }
+
     .form-group {
       margin-bottom: 1.5rem;
     }
 
     .form-group label {
       display: block;
-      font-weight: 500;
+      font-weight: 600;
       margin-bottom: 0.5rem;
-      color: #374151;
-      font-size: 0.9375rem;
+      font-size: 0.875rem;
     }
 
     .form-input {
       width: 100%;
       padding: 0.75rem 1rem;
-      border: 1px solid #d1d5db;
+      border: 1px solid var(--border);
       border-radius: 8px;
-      font-size: 1rem;
-      transition: all 0.2s;
+      background: var(--bg);
+      color: var(--text-main);
+      font-size: 0.9375rem;
       cursor: pointer;
-      background: white;
-      font-family: inherit;
-    }
-
-    .form-input:hover {
-      border-color: #9ca3af;
+      transition: all 0.2s;
     }
 
     .form-input:focus {
       outline: none;
-      border-color: #3b82f6;
-      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
     }
 
-    /* Code Box */
-    .code-box {
-      background: #1f2937;
-      color: #e5e7eb;
-      padding: 1rem;
-      border-radius: 6px;
-      font-family: 'Courier New', monospace;
-      font-size: 0.875rem;
-      overflow-x: auto;
-      margin-top: 1rem;
+    /* Dark Mode Toggle */
+    .theme-toggle {
+      cursor: pointer;
+      padding: 0.5rem;
+      border-radius: 8px;
+      background: var(--sidebar-bg);
+      border: 1px solid var(--border);
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    /* Footer */
-    .footer {
-      text-align: center;
-      color: #6b7280;
-      margin-top: 3rem;
-      padding: 2rem 1rem;
+    /* Mobile Menu */
+    .menu-btn {
+      display: none;
+      cursor: pointer;
+      padding: 0.5rem;
     }
 
-    .footer p {
-      font-size: 0.9375rem;
-    }
-
-    /* Responsive */
-    @media (max-width: 768px) {
-      .header h1 {
-        font-size: 2rem;
+    @media (max-width: 1024px) {
+      aside.sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.3s;
       }
 
-      .demo-grid {
-        grid-template-columns: 1fr;
+      aside.sidebar.open {
+        transform: translateX(0);
       }
 
-      .control-group {
-        flex-direction: column;
+      main.content {
+        margin-left: 0;
+        padding: calc(var(--header-height) + 1.5rem) 1.5rem 3rem;
       }
 
-      .btn {
-        width: 100%;
+      .menu-btn {
+        display: block;
       }
     }
   </style>
 </head>
 
 <body>
-  <div class="container">
-    <!-- Header -->
-    <div class="header">
-      <h1>🇪🇹 Ethiopian Date Picker</h1>
-      <div class="flag-accent"></div>
-      <p class="subtitle">Professional, Beautiful & Functional | ሙያዊ፣ ቆንጆ እና ተግባራዊ</p>
-    </div>
-
-    <!-- Controls -->
-    <div class="controls">
-      <h2>Configuration</h2>
-      <div class="control-group">
-        <button class="btn btn-primary" onclick="toggleDarkMode()">Toggle Dark Mode</button>
-        <button class="btn btn-secondary" onclick="getAllValues()">Get All Values</button>
-        <button class="btn btn-secondary" onclick="setCustomDate()">Set Custom Date</button>
-        <button class="btn btn-secondary" onclick="resetAll()">Reset All</button>
-      </div>
-
-      <div class="info-box" id="infoBox" style="display: none;">
-        <h4>Selected Dates</h4>
-        <p id="infoText"></p>
-      </div>
-    </div>
-
-    <!-- Demo Cards -->
-    <div class="demo-grid">
-      <!-- Basic Date Picker -->
-      <div class="demo-card">
-        <h3>📆 Basic Date Picker</h3>
-        <p>Simple date picker with default settings. Click the input to select an Ethiopian date.</p>
-
-        <div class="form-group">
-          <label for="date1">Select Date (Amharic)</label>
-          <input type="text" id="date1" class="form-input" placeholder="ቀን ይምረጡ..." readonly>
-        </div>
-
-        <div class="code-box">
-          new EthiopianDatePicker('#date1', {
-          locale: 'am'
-          });</div>
-      </div>
-
-      <!-- English Locale -->
-      <div class="demo-card">
-        <h3>🌍 English Locale</h3>
-        <p>Date picker with English language support and holiday highlighting.</p>
-
-        <div class="form-group">
-          <label for="date2">Select Date (English)</label>
-          <input type="text" id="date2" class="form-input" placeholder="Select a date..." readonly>
-        </div>
-
-        <div class="code-box">
-          new EthiopianDatePicker('#date2', {
-          locale: 'en',
-          highlightHolidays: true
-          });</div>
-      </div>
-
-      <!-- Dark Mode -->
-      <div class="demo-card">
-        <h3>🌙 Dark Mode</h3>
-        <p>Beautiful dark theme for low-light environments. Fully accessible and easy on the eyes.</p>
-
-        <div class="form-group">
-          <label for="date3">Select Date (Dark Mode)</label>
-          <input type="text" id="date3" class="form-input" placeholder="ቀን ይምረጡ..." readonly>
-        </div>
-
-        <div class="code-box">
-          new EthiopianDatePicker('#date3', {
-          locale: 'am',
-          darkMode: true
-          });</div>
-      </div>
-
-      <!-- With Callbacks -->
-      <div class="demo-card">
-        <h3>🎯 With Event Callbacks</h3>
-        <p>Date picker with custom event handlers for date changes and picker state.</p>
-
-        <div class="form-group">
-          <label for="date4">Select Date (With Events)</label>
-          <input type="text" id="date4" class="form-input" placeholder="Select a date..." readonly>
-        </div>
-
-        <div class="info-box">
-          <h4>Event Log</h4>
-          <p id="eventLog">No events yet...</p>
-        </div>
-
-        <div class="code-box">
-          new EthiopianDatePicker('#date4', {
-          locale: 'en',
-          onChange: (date) => {
-          console.log('Date changed:', date);
-          }
-          });</div>
-      </div>
-
-      <!-- Date Range -->
-      <div class="demo-card">
-        <h3>📅 Date Restrictions</h3>
-        <p>Restrict selectable dates with min/max date boundaries. Useful for bookings.</p>
-
-        <div class="form-group">
-          <label for="date5">Select Date (Next 30 Days Only)</label>
-          <input type="text" id="date5" class="form-input" placeholder="ቀን ይምረጡ..." readonly>
-        </div>
-
-        <div class="code-box">
-          new EthiopianDatePicker('#date5', {
-          locale: 'am',
-          minDate: new Date(),
-          maxDate: new Date(Date.now() + 30*24*60*60*1000)
-          });</div>
-      </div>
-
-      <!-- Custom Styling -->
-      <div class="demo-card">
-        <h3>🎨 Holiday Highlighting</h3>
-        <p>Automatically highlights Ethiopian holidays with special styling.</p>
-
-        <div class="form-group">
-          <label for="date6">Select Date (With Holidays)</label>
-          <input type="text" id="date6" class="form-input" placeholder="Select a date..." readonly>
-        </div>
-
-        <div class="info-box">
-          <h4>Ethiopian Holidays</h4>
-          <p>Enkutatash, Meskel, Genna, Timkat, Fasika, and more are highlighted!</p>
-        </div>
-
-        <div class="code-box">
-          new EthiopianDatePicker('#date6', {
-          locale: 'en',
-          highlightHolidays: true,
-          showTodayButton: true
-          });</div>
+  <header>
+    <a href="#" class="logo">
+      <div class="logo-flag"></div>
+      Ethiopian Date Picker
+    </a>
+    <div class="header-actions">
+      <a href="https://github.com/Bereketmuniye/date-picker-for-ethiopian" class="badge" target="_blank">v1.0.3</a>
+      <button class="theme-toggle" id="themeToggle" title="Toggle Theme">
+        <svg id="sunIcon" style="display:none" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+          viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="5"></circle>
+          <path
+            d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2m-16.78 7.78l1.42-1.42M18.36 5.64l1.42-1.42">
+          </path>
+        </svg>
+        <svg id="moonIcon" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+          viewBox="0 0 24 24">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+      </button>
+      <div class="menu-btn" id="menuBtn">
+        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
       </div>
     </div>
+  </header>
 
-    <!-- Footer -->
-    <div class="footer">
-      <p>Built with 🇪🇹 for the Ethiopian community</p>
-      <p style="margin-top: 0.5rem; font-size: 0.875rem;">
-        Features: Accurate Conversion • Responsive Design • Accessibility • Dark Mode • Keyboard Navigation
-      </p>
-    </div>
+  <div class="app-container">
+    <aside class="sidebar" id="sidebar">
+      <div class="nav-group">
+        <div class="nav-title">Getting Started</div>
+        <a href="#introduction" class="nav-link active">Introduction</a>
+        <a href="#live-demo" class="nav-link">Live Demo</a>
+        <a href="#installation" class="nav-link">Installation</a>
+        <a href="#quick-start" class="nav-link">Quick Start</a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-title">Reference</div>
+        <a href="#configuration" class="nav-link">Configuration</a>
+        <a href="#api-datepicker" class="nav-link">DatePicker API</a>
+        <a href="#api-calendar" class="nav-link">Calendar Utilities</a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-title">Guided Examples</div>
+        <a href="#example-restrictions" class="nav-link">Date Restrictions</a>
+        <a href="#example-forms" class="nav-link">Form Integration</a>
+        <a href="#example-react" class="nav-link">React Usage</a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-title">Community</div>
+        <a href="#troubleshooting" class="nav-link">Troubleshooting</a>
+        <a href="https://github.com/Bereketmuniye/date-picker-for-ethiopian" class="nav-link" target="_blank">GitHub
+          Repo</a>
+        <a href="https://www.npmjs.com/package/@bekim_2121/ethiopian-datepicker" class="nav-link" target="_blank">NPM
+          Package</a>
+      </div>
+    </aside>
+
+    <main class="content">
+      <article>
+        <section id="introduction">
+          <h1>Ethiopian Date Picker</h1>
+          <p class="subtitle">A full-featured, high-performance date picker for the Ethiopian calendar system.</p>
+
+          <p>Designed for professional web applications, this library offers precise conversion between Ethiopian
+            (Ge'ez) and Gregorian calendars with zero external dependencies. It focuses on accessibility,
+            internationalization, and premium developer experience.</p>
+
+          <div class="card-grid">
+            <div class="feature-card">
+              <span class="feature-icon">🎯</span>
+              <h4>Accurate Conversion</h4>
+              <p>Military-grade accuracy in calendar mapping, handling leap years and the 7-8 year difference
+                seamlessly.</p>
+            </div>
+            <div class="feature-card">
+              <span class="feature-icon">🌐</span>
+              <h4>Bilingual First</h4>
+              <p>Native support for Amharic and English, allowing for localized experiences in diverse markets.</p>
+            </div>
+            <div class="feature-card">
+              <span class="feature-icon">⌨️</span>
+              <h4>Full Accessibility</h4>
+              <p>WAI-ARIA compliant with exhaustive keyboard support for power users and assistive technologies.</p>
+            </div>
+          </div>
+        </section>
+
+        <section id="live-demo">
+          <h2>Live Playground</h2>
+          <p>Experience the picker first-hand. This live demo uses the local library build.</p>
+
+          <div class="demo-section">
+            <div class="card-grid">
+              <div class="form-group">
+                <label>Amharic (Default)</label>
+                <input type="text" id="demo-am" class="form-input" placeholder="ቀን ይምረጡ..." readonly>
+              </div>
+              <div class="form-group">
+                <label>English Locale</label>
+                <input type="text" id="demo-en" class="form-input" placeholder="Select date..." readonly>
+              </div>
+            </div>
+            <div class="alert alert-info">
+              <p id="demo-log">Select a date above to see the data structure here.</p>
+            </div>
+          </div>
+        </section>
+
+        <section id="installation">
+          <h2>Installation</h2>
+          <p>Choose the installation method that fits your workflow. For most production environments, we recommend NPM.
+          </p>
+
+          <h3>NPM</h3>
+          <div class="code-container">
+            <div class="code-header"><span>Terminal</span><button class="copy-btn">Copy</button></div>
+            <pre><code>npm install @bekim_2121/ethiopian-datepicker</code></pre>
+          </div>
+
+          <h3>CDN</h3>
+          <p>Import styles and scripts directly in your HTML. Ideal for quick prototyping or static sites.</p>
+          <div class="code-container">
+            <div class="code-header"><span>HTML</span><button class="copy-btn">Copy</button></div>
+            <pre><code>&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@bekim_2121/ethiopian-datepicker@1.0.3/dist/ethiopian-datepicker.css"&gt;
+&lt;script src="https://cdn.jsdelivr.net/npm/@bekim_2121/ethiopian-datepicker@1.0.3/dist/ethiopian-datepicker.js"&gt;&lt;/script&gt;</code></pre>
+          </div>
+        </section>
+
+        <section id="quick-start">
+          <h2>Quick Start</h2>
+          <p>Initialize your first Ethiopian date picker in seconds.</p>
+
+          <div class="code-container">
+            <div class="code-header"><span>Javascript</span><button class="copy-btn">Copy</button></div>
+            <pre><code>// 1. Identify your input element
+const input = document.querySelector('#my-date-input');
+
+// 2. Initialize the picker
+const picker = new EthiopianDatePicker(input, {
+  locale: 'am',           // Amharic locale
+  highlightHolidays: true // Highlighting celebrations
+});
+
+// 3. Listen for changes
+picker.options.onChange = (date) => {
+  console.log('User selected:', date.formatted);
+};</code></pre>
+          </div>
+        </section>
+
+        <section id="configuration">
+          <h2>Configuration</h2>
+          <p>Fine-tune every aspect of the picker's behavior and appearance.</p>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Option</th>
+                  <th>Default</th>
+                  <th>Detail</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>locale</code></td>
+                  <td><code>'am'</code></td>
+                  <td>Supports <code>'am'</code> (Amharic) and <code>'en'</code> (English).</td>
+                </tr>
+                <tr>
+                  <td><code>darkMode</code></td>
+                  <td><code>false</code></td>
+                  <td>Enables refined dark theme.</td>
+                </tr>
+                <tr>
+                  <td><code>minDate</code></td>
+                  <td><code>null</code></td>
+                  <td>Prevents selection of dates before this (Gregorian Date).</td>
+                </tr>
+                <tr>
+                  <td><code>maxDate</code></td>
+                  <td><code>null</code></td>
+                  <td>Prevents selection of dates after this (Gregorian Date).</td>
+                </tr>
+                <tr>
+                  <td><code>showToday</code></td>
+                  <td><code>true</code></td>
+                  <td>Shows shortcut to jump to "Today".</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section id="api-datepicker">
+          <h2>DatePicker API</h2>
+
+          <h3><code>getSelectedDate()</code></h3>
+          <p>Returns the currently selected date as a structured object.</p>
+          <div class="code-container">
+            <pre><code>{
+  year: 2017,
+  month: 1,
+  day: 1,
+  formatted: "መስከረም 1, 2017",
+  gregorian: Date // Standard JS Date
+}</code></pre>
+          </div>
+
+          <h3><code>setDate(y, m, d)</code></h3>
+          <p>Sets the picker to a specific Ethiopian date programmatically.</p>
+
+          <h3><code>open()</code> / <code>close()</code></h3>
+          <p>Manually trigger the picker visibility.</p>
+        </section>
+
+        <section id="example-react">
+          <h2>React Integration</h2>
+          <p>Use the library within a React functional component effortlessly with <code>useRef</code> and
+            <code>useEffect</code>.</p>
+
+          <div class="code-container">
+            <div class="code-header"><span>React / JSX</span><button class="copy-btn">Copy</button></div>
+            <pre><code>import { useEffect, useRef } from 'react';
+
+const EthDatePicker = ({ onDateSelect }) => {
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    const inst = new EthiopianDatePicker(inputRef.current, {
+      onChange: (date) => onDateSelect(date)
+    });
+    return () => inst.destroy();
+  }, [onDateSelect]);
+
+  return &lt;input ref={inputRef} readOnly /&gt;;
+};</code></pre>
+          </div>
+        </section>
+
+        <section id="troubleshooting">
+          <h2>Troubleshooting</h2>
+          <p>Common questions and solutions for integration.</p>
+
+          <h3>Picker doesn't position correctly?</h3>
+          <p>Ensure the parent container of your input does not have <code>overflow: hidden</code> and the library CSS
+            is loaded before the script.</p>
+
+          <h3>Dates are off by a few years?</h3>
+          <p>Remember that the Ethiopian calendar is 7-8 years behind the Gregorian calendar. This is expected behavior.
+          </p>
+        </section>
+      </article>
+
+      <footer
+        style="margin-top: 6rem; border-top: 1px solid var(--border); padding-top: 2rem; color: var(--text-muted); font-size: 0.875rem; text-align: center;">
+        &copy; 2024 Ethiopian Date Picker Library. Released under MIT License.
+      </footer>
+    </main>
   </div>
 
-  <!-- Scripts -->
+  <!-- Scripts (Local) -->
   <script src="js/ethiopian-calendar.js"></script>
   <script src="js/datepicker.js"></script>
+
   <script>
-    // Initialize date pickers
-    let pickers = {};
-
-    // Basic Amharic picker
-    pickers.picker1 = new EthiopianDatePicker('#date1', {
+    // --- Live Demo Integration ---
+    const demoAm = new EthiopianDatePicker('#demo-am', {
       locale: 'am',
-      highlightHolidays: true
+      onChange: (date) => updateLog(date)
     });
 
-    // English picker
-    pickers.picker2 = new EthiopianDatePicker('#date2', {
+    const demoEn = new EthiopianDatePicker('#demo-en', {
       locale: 'en',
-      highlightHolidays: true
+      onChange: (date) => updateLog(date)
     });
 
-    // Dark mode picker
-    pickers.picker3 = new EthiopianDatePicker('#date3', {
-      locale: 'am',
-      darkMode: true,
-      highlightHolidays: true
+    function updateLog(date) {
+      const log = document.getElementById('demo-log');
+      log.innerHTML = `<strong>Selected:</strong> ${date.formatted} <br> <strong>JSON:</strong> <code>${JSON.stringify({ year: date.year, month: date.month, day: date.day })}</code>`;
+    }
+
+    // --- Theme Toggle ---
+    const themeToggle = document.getElementById('themeToggle');
+    const sunIcon = document.getElementById('sunIcon');
+    const moonIcon = document.getElementById('moonIcon');
+
+    themeToggle.addEventListener('click', () => {
+      document.body.classList.toggle('dark');
+      const isDark = document.body.classList.contains('dark');
+      sunIcon.style.display = isDark ? 'block' : 'none';
+      moonIcon.style.display = isDark ? 'none' : 'block';
+      localStorage.setItem('theme', isDark ? 'dark' : 'light');
+
+      // Sync with picker instances
+      [demoAm, demoEn].forEach(p => {
+        p.options.darkMode = isDark;
+        if (isDark) p.container.classList.add('dark-mode');
+        else p.container.classList.remove('dark-mode');
+      });
     });
 
-    // Picker with callbacks
-    pickers.picker4 = new EthiopianDatePicker('#date4', {
-      locale: 'en',
-      onChange: (date) => {
-        const eventLog = document.getElementById('eventLog');
-        eventLog.textContent = `Selected: ${date.formatted} (Gregorian: ${date.gregorian.toDateString()})`;
-      },
-      onOpen: () => {
-        console.log('Picker opened');
-      },
-      onClose: () => {
-        console.log('Picker closed');
-      }
-    });
+    // Init theme
+    if (localStorage.getItem('theme') === 'dark') {
+      document.body.classList.add('dark');
+      sunIcon.style.display = 'block';
+      moonIcon.style.display = 'none';
+      // Set pickers to dark too
+      setTimeout(() => {
+        [demoAm, demoEn].forEach(p => {
+          p.options.darkMode = true;
+          p.container.classList.add('dark-mode');
+        });
+      }, 100);
+    }
 
-    // Date range restricted
-    const today = new Date();
-    const maxDate = new Date(today);
-    maxDate.setDate(maxDate.getDate() + 30);
+    // --- Sidebar & Navigation ---
+    const navLinks = document.querySelectorAll('.nav-link');
+    const sections = document.querySelectorAll('section');
 
-    pickers.picker5 = new EthiopianDatePicker('#date5', {
-      locale: 'am',
-      minDate: today,
-      maxDate: maxDate,
-      highlightHolidays: true
-    });
-
-    // Holiday highlighting
-    pickers.picker6 = new EthiopianDatePicker('#date6', {
-      locale: 'en',
-      highlightHolidays: true,
-      showTodayButton: true
-    });
-
-    // Control functions
-    function toggleDarkMode() {
-      Object.values(pickers).forEach(picker => {
-        picker.options.darkMode = !picker.options.darkMode;
-        if (picker.options.darkMode) {
-          picker.container.classList.add('dark-mode');
-        } else {
-          picker.container.classList.remove('dark-mode');
+    window.addEventListener('scroll', () => {
+      let current = "";
+      sections.forEach((section) => {
+        const sectionTop = section.offsetTop;
+        if (pageYOffset >= sectionTop - 100) {
+          current = section.getAttribute("id");
         }
       });
 
-      // Show confirmation
-      const isDark = pickers.picker1.options.darkMode;
-      alert(`Dark mode ${isDark ? 'enabled' : 'disabled'} for all pickers. Open any date picker to see the change.`);
-    }
-
-    function getAllValues() {
-      const values = {};
-      let hasValues = false;
-
-      Object.keys(pickers).forEach((key, index) => {
-        const selected = pickers[key].getSelectedDate();
-        if (selected) {
-          hasValues = true;
-          values[`Date Picker ${index + 1}`] = pickers[key].calendar.formatDate(
-            selected.year, selected.month, selected.day, 'en'
-          );
+      navLinks.forEach((link) => {
+        link.classList.remove("active");
+        if (link.getAttribute("href").includes(current)) {
+          link.classList.add("active");
         }
       });
+    });
 
-      const infoBox = document.getElementById('infoBox');
-      const infoText = document.getElementById('infoText');
+    // Mobile Menu
+    const menuBtn = document.getElementById('menuBtn');
+    const sidebar = document.getElementById('sidebar');
 
-      if (hasValues) {
-        infoBox.style.display = 'block';
-        infoText.textContent = JSON.stringify(values, null, 2);
-      } else {
-        infoBox.style.display = 'block';
-        infoText.textContent = 'No dates selected yet. Click on any date picker to select a date!';
-      }
-    }
+    menuBtn.addEventListener('click', () => {
+      sidebar.classList.toggle('open');
+    });
 
-    function setCustomDate() {
-      // Set a specific Ethiopian date (Meskerem 1, 2017 - Ethiopian New Year)
-      pickers.picker1.setDate(2017, 1, 1);
-      alert('Set date to Meskerem 1, 2017 (Enkutatash - Ethiopian New Year) 🎉');
-    }
-
-    function resetAll() {
-      Object.values(pickers).forEach(picker => {
-        picker.input.value = '';
-        picker.selectedDate = null;
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        if (window.innerWidth <= 1024) sidebar.classList.remove('open');
       });
+    });
 
-      const infoBox = document.getElementById('infoBox');
-      infoBox.style.display = 'none';
-
-      alert('All date pickers have been reset! ✨');
-    }
-
-    // Log initialization
-    console.log('✅ Ethiopian Date Picker initialized successfully!');
-    console.log('📦 Total pickers:', Object.keys(pickers).length);
-    console.log('🎯 Features: Amharic/English, Dark Mode, Holidays, Keyboard Nav, Accessibility');
+    // --- Copy Buttons ---
+    document.querySelectorAll('.copy-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const code = btn.closest('.code-container').querySelector('code').innerText;
+        navigator.clipboard.writeText(code).then(() => {
+          const originalText = btn.innerText;
+          btn.innerText = 'Copied!';
+          setTimeout(() => btn.innerText = originalText, 2000);
+        });
+      });
+    });
   </script>
 </body>
 
