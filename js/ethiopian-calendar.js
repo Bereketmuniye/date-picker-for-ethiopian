@@ -72,47 +72,47 @@ class EthiopianCalendar {
         const month = gregorianDate.getMonth() + 1;
         const day = gregorianDate.getDate();
 
-        // Ethiopian calendar starts on September 11 (or 12 in leap years)
+        // Ethiopian new year (Meskerem 1) corresponds to September 11 or 12
         const ethiopianNewYear = this.isGregorianLeapYear(year) ? 12 : 11;
-
+        
         let ethYear, ethMonth, ethDay;
 
+        // Determine Ethiopian year
         if (month < 9 || (month === 9 && day < ethiopianNewYear)) {
-            // Before Ethiopian new year
             ethYear = year - 8;
         } else {
             ethYear = year - 7;
         }
 
-        // Calculate day of year in Gregorian calendar
-        const startOfYear = new Date(year, 0, 1);
-        const dayOfYear = Math.floor((gregorianDate - startOfYear) / (1000 * 60 * 60 * 24)) + 1;
+        // Create reference date for Ethiopian new year
+        const newYearDate = new Date(year, 8, ethiopianNewYear); // month 8 = September
+        newYearDate.setHours(0, 0, 0, 0);
+        
+        // Create current date reference
+        const currentDate = new Date(year, month - 1, day);
+        currentDate.setHours(0, 0, 0, 0);
 
-        // Calculate Ethiopian day of year
-        const ethDayOfYear = dayOfYear - (ethiopianNewYear === 12 ? 256 : 257);
-
-        if (ethDayOfYear > 0) {
-            // After Ethiopian new year
-            ethMonth = Math.floor(ethDayOfYear / 30) + 1;
-            ethDay = ethDayOfYear % 30;
-            if (ethDay === 0) {
-                ethDay = 30;
-                ethMonth--;
-            }
-            if (ethMonth > 13) {
-                ethMonth = 13;
-                ethDay = ethDayOfYear - 360;
-            }
+        // Calculate days since Ethiopian new year
+        let daysSinceNewYear;
+        
+        if (currentDate < newYearDate) {
+            // Before Ethiopian new year, use previous year's new year
+            const prevNewYearDate = new Date(year - 1, 8, this.isGregorianLeapYear(year - 1) ? 12 : 11);
+            prevNewYearDate.setHours(0, 0, 0, 0);
+            daysSinceNewYear = Math.floor((currentDate.getTime() - prevNewYearDate.getTime()) / (1000 * 60 * 60 * 24));
         } else {
-            // Before Ethiopian new year (in previous Ethiopian year)
-            const daysInPrevYear = this.isEthiopianLeapYear(ethYear - 1) ? 366 : 365;
-            const adjustedDayOfYear = daysInPrevYear + ethDayOfYear;
-            ethMonth = Math.floor(adjustedDayOfYear / 30) + 1;
-            ethDay = adjustedDayOfYear % 30;
-            if (ethDay === 0) {
-                ethDay = 30;
-                ethMonth--;
-            }
+            // After or on Ethiopian new year
+            daysSinceNewYear = Math.floor((currentDate.getTime() - newYearDate.getTime()) / (1000 * 60 * 60 * 24));
+        }
+
+        // Convert to Ethiopian month and day (30 days per month)
+        ethMonth = Math.floor(daysSinceNewYear / 30) + 1;
+        ethDay = (daysSinceNewYear % 30) + 1;
+
+        // Handle Pagume (13th month)
+        if (ethMonth > 13) {
+            ethMonth = 13;
+            ethDay = daysSinceNewYear - 360 + 1;
         }
 
         return {

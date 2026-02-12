@@ -326,6 +326,9 @@ class EthiopianDatePicker {
      */
     selectToday() {
         const today = this.calendar.today();
+        console.log('Today button clicked - Ethiopian date:', today);
+        console.log('Formatted (Amharic):', this.calendar.formatDate(today.year, today.month, today.day, 'am'));
+        console.log('Formatted (English):', this.calendar.formatDate(today.year, today.month, today.day, 'en'));
         this.currentView = { ...today };
         this.selectDate(today.year, today.month, today.day);
     }
