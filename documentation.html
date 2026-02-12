@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ethiopian Date Picker - Complete Documentation</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #3b82f6;
+            --ethiopian-green: #078930;
+            --ethiopian-yellow: #FCDD09;
+            --ethiopian-red: #DA121A;
+            --text: #1a202c;
+            --text-light: #4a5568;
+            --bg: #ffffff;
+            --bg-alt: #f7fafc;
+            --border: #e2e8f0;
+            --code-bg: #1e293b;
+            --code-text: #e2e8f0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background: var(--bg-alt);
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--ethiopian-green) 0%, var(--ethiopian-yellow) 50%, var(--ethiopian-red) 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .header p {
+            font-size: 1.125rem;
+            opacity: 0.95;
+        }
+
+        /* Navigation */
+        .nav {
+            background: white;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 1rem 2rem;
+        }
+
+        .nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .nav a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+
+        .nav a:hover {
+            background: var(--bg-alt);
+            color: var(--primary);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Section */
+        .section {
+            background: white;
+            border-radius: 12px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .section h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--text);
+            border-bottom: 3px solid var(--primary);
+            padding-bottom: 0.5rem;
+        }
+
+        .section h3 {
+            font-size: 1.5rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+
+        .section h4 {
+            font-size: 1.25rem;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+            color: var(--text-light);
+        }
+
+        /* Code */
+        .code-block {
+            background: var(--code-bg);
+            color: var(--code-text);
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 1rem 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        code {
+            background: #f1f5f9;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            color: #e11d48;
+        }
+
+        .code-block code {
+            background: transparent;
+            padding: 0;
+            color: inherit;
+        }
+
+        /* Table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+        }
+
+        th,
+        td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            background: var(--bg-alt);
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        tr:hover {
+            background: var(--bg-alt);
+        }
+
+        /* Alert Boxes */
+        .alert {
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            border-left: 4px solid;
+        }
+
+        .alert-info {
+            background: #eff6ff;
+            border-color: #3b82f6;
+            color: #1e40af;
+        }
+
+        .alert-warning {
+            background: #fffbeb;
+            border-color: #f59e0b;
+            color: #92400e;
+        }
+
+        .alert-success {
+            background: #f0fdf4;
+            border-color: #10b981;
+            color: #065f46;
+        }
+
+        /* Features Grid */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .feature {
+            padding: 1.5rem;
+            background: var(--bg-alt);
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
+        .feature h4 {
+            margin-top: 0;
+            color: var(--primary);
+        }
+
+        /* List */
+        ul,
+        ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Links */
+        a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-light);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .nav ul {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .section {
+                padding: 1.5rem;
+            }
+
+            .container {
+                padding: 1rem;
+            }
+        }
+
+        /* Scroll behavior */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Highlight target section */
+        :target {
+            animation: highlight 2s ease;
+        }
+
+        @keyframes highlight {
+            0% {
+                background: #fef3c7;
+            }
+
+            100% {
+                background: transparent;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <div class="header">
+        <h1>🇪🇹 Ethiopian Date Picker Documentation</h1>
+        <p>Complete Guide for Users and Developers</p>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <ul>
+            <li><a href="#introduction">Introduction</a></li>
+            <li><a href="#installation">Installation</a></li>
+            <li><a href="#quick-start">Quick Start</a></li>
+            <li><a href="#configuration">Configuration</a></li>
+            <li><a href="#api">API Reference</a></li>
+            <li><a href="#examples">Examples</a></li>
+            <li><a href="#troubleshooting">Troubleshooting</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <!-- Introduction -->
+        <section id="introduction" class="section">
+            <h2>📖 Introduction</h2>
+
+            <p>The Ethiopian Date Picker is a professional, accessible JavaScript library for working with the Ethiopian
+                calendar (Ge'ez calendar). It provides accurate conversion between Gregorian and Ethiopian dates, with
+                full support for both Amharic and English languages.</p>
+
+            <div class="features">
+                <div class="feature">
+                    <h4>✅ Accurate Conversion</h4>
+                    <p>Precise Gregorian ↔ Ethiopian date conversion using standard algorithms</p>
+                </div>
+                <div class="feature">
+                    <h4>🌍 Bilingual Support</h4>
+                    <p>Full Amharic and English localization for all text and dates</p>
+                </div>
+                <div class="feature">
+                    <h4>🌙 Dark Mode</h4>
+                    <p>Beautiful dark theme with smooth transitions</p>
+                </div>
+                <div class="feature">
+                    <h4>🎉 Holiday Highlighting</h4>
+                    <p>Automatic detection and highlighting of Ethiopian holidays</p>
+                </div>
+                <div class="feature">
+                    <h4>⌨️ Keyboard Navigation</h4>
+                    <p>Full keyboard accessibility with arrow keys, Enter, and Escape</p>
+                </div>
+                <div class="feature">
+                    <h4>♿ Accessible</h4>
+                    <p>WAI-ARIA compliant and screen reader friendly</p>
+                </div>
+            </div>
+
+            <div class="alert alert-success">
+                <strong>Zero Dependencies:</strong> Pure JavaScript library with no external dependencies. Approximately
+                26KB minified.
+            </div>
+        </section>
+
+        <!-- Installation -->
+        <section id="installation" class="section">
+            <h2>📦 Installation</h2>
+
+            <h3>NPM Installation</h3>
+            <div class="code-block"><code>npm install @bekim_2121/ethiopian-datepicker</code></div>
+
+            <h3>CDN Installation</h3>
+            <p>Include the CSS and JavaScript files directly from CDN:</p>
+            <div class="code-block">
+                <code>&lt;!-- CSS --&gt;
+&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@bekim_2121/ethiopian-datepicker@1.0.3/dist/ethiopian-datepicker.css"&gt;
+
+&lt;!-- JavaScript --&gt;
+&lt;script src="https://cdn.jsdelivr.net/npm/@bekim_2121/ethiopian-datepicker@1.0.3/dist/ethiopian-datepicker.js"&gt;&lt;/script&gt;</code>
+            </div>
+
+            <h3>Manual Installation</h3>
+            <ol>
+                <li>Download the latest release from <a
+                        href="https://github.com/Bereketmuniye/date-picker-for-ethiopian/releases"
+                        target="_blank">GitHub Releases</a></li>
+                <li>Extract the files</li>
+                <li>Include in your HTML:</li>
+            </ol>
+            <div class="code-block"><code>&lt;link rel="stylesheet" href="path/to/ethiopian-datepicker.css"&gt;
+&lt;script src="path/to/ethiopian-datepicker.js"&gt;&lt;/script&gt;</code></div>
+        </section>
+
+        <!-- Quick Start -->
+        <section id="quick-start" class="section">
+            <h2>🚀 Quick Start</h2>
+
+            <h3>Basic Example</h3>
+            <div class="code-block"><code>&lt;!-- HTML --&gt;
+&lt;input type="text" id="datepicker" placeholder="ቀን ይምረጡ..." readonly&gt;
+
+&lt;script&gt;
+  // Initialize with default settings
+  const picker = new EthiopianDatePicker('#datepicker', {
+    locale: 'am',              // Language: 'am' (Amharic) or 'en' (English)
+    darkMode: false,           // Theme
+    highlightHolidays: true    // Highlight Ethiopian holidays
+  });
+&lt;/script&gt;</code></div>
+
+            <h3>With Event Callbacks</h3>
+            <div class="code-block"><code>const picker = new EthiopianDatePicker('#datepicker', {
+  locale: 'am',
+  onChange: (date) => {
+    console.log('Selected:', date.formatted);
+    console.log('Ethiopian Date:', date.year, date.month, date.day);
+    console.log('Gregorian Date:', date.gregorian);
+  }
+});</code></div>
+
+            <div class="alert alert-info">
+                <strong>Important:</strong> Always use the <code>readonly</code> attribute on your input to prevent
+                manual typing and ensure dates are only selected via the picker.
+            </div>
+        </section>
+
+        <!-- Configuration -->
+        <section id="configuration" class="section">
+            <h2>⚙️ Configuration Options</h2>
+
+            <p>Complete configuration object with all available options:</p>
+
+            <div class="code-block"><code>const picker = new EthiopianDatePicker('#input', {
+  // Language & Localization
+  locale: 'am',                      // 'am' (Amharic) or 'en' (English)
+  
+  // Date Restrictions
+  minDate: new Date(),               // Minimum selectable date (Gregorian)
+  maxDate: new Date('2025-12-31'),   // Maximum selectable date (Gregorian)
+  disabledDates: [],                 // Array of disabled dates
+  
+  // Visual Options
+  darkMode: false,                   // Enable dark theme
+  highlightHolidays: true,           // Highlight Ethiopian holidays
+  showTodayButton: true,             // Show "Today" button
+  
+  // Format
+  dateFormat: 'DD/MM/YYYY',          // Display format
+  
+  // Event Callbacks
+  onChange: (date) => {},            // Called when date is selected
+  onOpen: () => {},                  // Called when picker opens
+  onClose: () => {}                  // Called when picker closes
+});</code></div>
+
+            <h3>Options Reference</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Option</th>
+                        <th>Type</th>
+                        <th>Default</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>locale</code></td>
+                        <td>String</td>
+                        <td><code>'am'</code></td>
+                        <td>Display language: 'am' (Amharic) or 'en' (English)</td>
+                    </tr>
+                    <tr>
+                        <td><code>minDate</code></td>
+                        <td>Date | null</td>
+                        <td><code>null</code></td>
+                        <td>Minimum selectable date (Gregorian)</td>
+                    </tr>
+                    <tr>
+                        <td><code>maxDate</code></td>
+                        <td>Date | null</td>
+                        <td><code>null</code></td>
+                        <td>Maximum selectable date (Gregorian)</td>
+                    </tr>
+                    <tr>
+                        <td><code>disabledDates</code></td>
+                        <td>Array</td>
+                        <td><code>[]</code></td>
+                        <td>Array of specific dates to disable</td>
+                    </tr>
+                    <tr>
+                        <td><code>highlightHolidays</code></td>
+                        <td>Boolean</td>
+                        <td><code>true</code></td>
+                        <td>Highlight Ethiopian holidays</td>
+                    </tr>
+                    <tr>
+                        <td><code>showTodayButton</code></td>
+                        <td>Boolean</td>
+                        <td><code>true</code></td>
+                        <td>Show "Today" button in footer</td>
+                    </tr>
+                    <tr>
+                        <td><code>darkMode</code></td>
+                        <td>Boolean</td>
+                        <td><code>false</code></td>
+                        <td>Enable dark mode theme</td>
+                    </tr>
+                    <tr>
+                        <td><code>onChange</code></td>
+                        <td>Function</td>
+                        <td><code>null</code></td>
+                        <td>Callback when date selected</td>
+                    </tr>
+                    <tr>
+                        <td><code>onOpen</code></td>
+                        <td>Function</td>
+                        <td><code>null</code></td>
+                        <td>Callback when picker opens</td>
+                    </tr>
+                    <tr>
+                        <td><code>onClose</code></td>
+                        <td>Function</td>
+                        <td><code>null</code></td>
+                        <td>Callback when picker closes</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- API Reference -->
+        <section id="api" class="section">
+            <h2>📚 API Reference</h2>
+
+            <h3>EthiopianDatePicker Class</h3>
+
+            <h4>Constructor</h4>
+            <div class="code-block"><code>new EthiopianDatePicker(inputElement, options)</code></div>
+            <ul>
+                <li><strong>inputElement</strong>: CSS selector string or DOM element</li>
+                <li><strong>options</strong>: Configuration object (see Configuration section)</li>
+            </ul>
+
+            <h4>getSelectedDate()</h4>
+            <p>Get the currently selected date.</p>
+            <div class="code-block"><code>const selected = picker.getSelectedDate();
+// Returns: { year, month, day, formatted, gregorian }
+// or null if no date selected</code></div>
+
+            <h4>setDate(year, month, day)</h4>
+            <p>Programmatically set a date.</p>
+            <div class="code-block"><code>picker.setDate(2017, 1, 1);  // Ethiopian New Year</code></div>
+
+            <h4>open()</h4>
+            <p>Open the date picker programmatically.</p>
+            <div class="code-block"><code>picker.open();</code></div>
+
+            <h4>close()</h4>
+            <p>Close the date picker programmatically.</p>
+            <div class="code-block"><code>picker.close();</code></div>
+
+            <h4>destroy()</h4>
+            <p>Remove picker and clean up event listeners.</p>
+            <div class="code-block"><code>picker.destroy();</code></div>
+
+            <h3>EthiopianCalendar Class</h3>
+
+            <h4>gregorianToEthiopian(date)</h4>
+            <p>Convert Gregorian date to Ethiopian.</p>
+            <div class="code-block"><code>const calendar = new EthiopianCalendar();
+const ethDate = calendar.gregorianToEthiopian(new Date());
+// Returns: { year: 2017, month: 5, day: 4 }</code></div>
+
+            <h4>ethiopianToGregorian(year, month, day)</h4>
+            <p>Convert Ethiopian date to Gregorian.</p>
+            <div class="code-block"><code>const gregDate = calendar.ethiopianToGregorian(2017, 1, 1);
+// Returns: Date object</code></div>
+
+            <h4>formatDate(year, month, day, locale, includeWeekDay)</h4>
+            <p>Format Ethiopian date as string.</p>
+            <div class="code-block"><code>const formatted = calendar.formatDate(2017, 1, 1, 'am', true);
+// Returns: "ቅዳሜ, መስከረም 1, 2017"</code></div>
+
+            <h4>isHoliday(month, day)</h4>
+            <p>Check if a date is an Ethiopian holiday.</p>
+            <div class="code-block"><code>const holiday = calendar.isHoliday(1, 1);
+// Returns: { month: 1, day: 1, name: { am: 'እንቁጣጣሽ', en: 'Enkutatash' } }
+// or null if not a holiday</code></div>
+
+            <h4>getMonthName(month, locale)</h4>
+            <p>Get month name in specified language.</p>
+            <div class="code-block"><code>const monthName = calendar.getMonthName(1, 'am');
+// Returns: "መስከረም"</code></div>
+
+            <h4>today()</h4>
+            <p>Get today's Ethiopian date.</p>
+            <div class="code-block"><code>const today = calendar.today();
+// Returns: { year: 2017, month: 5, day: 4 }</code></div>
+        </section>
+
+        <!-- Examples -->
+        <section id="examples" class="section">
+            <h2>💡 Practical Examples</h2>
+
+            <h3>1. Date Range Restrictions</h3>
+            <p>Limit selectable dates to next 30 days only:</p>
+            <div class="code-block"><code>const today = new Date();
+const futureDate = new Date();
+futureDate.setDate(futureDate.getDate() + 30);
+
+const picker = new EthiopianDatePicker('#datepicker', {
+  minDate: today,
+  maxDate: futureDate,
+  locale: 'am'
+});</code></div>
+
+            <h3>2. Form Integration</h3>
+            <p>Integrate with HTML forms and store both Ethiopian and Gregorian dates:</p>
+            <div class="code-block"><code>&lt;form id="myForm"&gt;
+  &lt;label for="birthdate"&gt;Birth Date&lt;/label&gt;
+  &lt;input type="text" id="birthdate" readonly required&gt;
+  &lt;input type="hidden" id="birthdate-gregorian"&gt;
+  &lt;button type="submit"&gt;Submit&lt;/button&gt;
+&lt;/form&gt;
+
+&lt;script&gt;
+  const picker = new EthiopianDatePicker('#birthdate', {
+    locale: 'am',
+    onChange: (date) => {
+      // Store Gregorian date for server
+      document.getElementById('birthdate-gregorian').value = 
+        date.gregorian.toISOString();
+    }
+  });
+
+  document.getElementById('myForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const ethiopian = picker.getSelectedDate();
+    const gregorian = document.getElementById('birthdate-gregorian').value;
+    console.log('Ethiopian:', ethiopian);
+    console.log('Gregorian:', gregorian);
+    // Submit to server
+  });
+&lt;/script&gt;</code></div>
+
+            <h3>3. Date Range Selector</h3>
+            <p>Create start and end date pickers that depend on each other:</p>
+            <div class="code-block"><code>&lt;input type="text" id="startDate" readonly&gt;
+&lt;input type="text" id="endDate" readonly&gt;
+
+&lt;script&gt;
+  let startPicker, endPicker;
+  
+  startPicker = new EthiopianDatePicker('#startDate', {
+    locale: 'en',
+    onChange: (date) => {
+      // Update end date minimum
+      endPicker.options.minDate = date.gregorian;
+    }
+  });
+  
+  endPicker = new EthiopianDatePicker('#endDate', {
+    locale: 'en',
+    onChange: (date) => {
+      // Update start date maximum
+      startPicker.options.maxDate = date.gregorian;
+    }
+  });
+&lt;/script&gt;</code></div>
+
+            <h3>4. React Integration</h3>
+            <div class="code-block"><code>import { useEffect, useRef } from 'react';
+
+function EthiopianDateInput({ onChange, locale = 'am' }) {
+  const inputRef = useRef(null);
+  const pickerRef = useRef(null);
+  
+  useEffect(() => {
+    pickerRef.current = new EthiopianDatePicker(inputRef.current, {
+      locale,
+      onChange: (date) => {
+        if (onChange) onChange(date);
+      }
+    });
+    
+    return () => {
+      if (pickerRef.current) {
+        pickerRef.current.destroy();
+      }
+    };
+  }, [locale, onChange]);
+  
+  return (
+    &lt;input
+      ref={inputRef}
+      type="text"
+      placeholder="ቀን ይምረጡ..."
+      readOnly
+    /&gt;
+  );
+}</code></div>
+
+            <h3>5. Toggle Dark Mode</h3>
+            <div class="code-block"><code>const picker = new EthiopianDatePicker('#datepicker', {
+  darkMode: false
+});
+
+function toggleDarkMode() {
+  picker.options.darkMode = !picker.options.darkMode;
+  if (picker.options.darkMode) {
+    picker.container.classList.add('dark-mode');
+  } else {
+    picker.container.classList.remove('dark-mode');
+  }
+}</code></div>
+
+            <h3>6. Keyboard Navigation</h3>
+            <p>The picker fully supports keyboard navigation:</p>
+            <ul>
+                <li><strong>Enter / Space</strong> - Open picker (when input focused)</li>
+                <li><strong>Escape</strong> - Close picker</li>
+                <li><strong>Arrow Keys</strong> - Navigate between days</li>
+                <li><strong>Page Up/Down</strong> - Navigate between months</li>
+                <li><strong>Home</strong> - Go to first day of month</li>
+                <li><strong>End</strong> - Go to last day of month</li>
+            </ul>
+        </section>
+
+        <!-- Ethiopian Holidays -->
+        <section id="holidays" class="section">
+            <h2>🎉 Ethiopian Holidays</h2>
+
+            <p>The following holidays are automatically detected and highlighted:</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Holiday (Amharic)</th>
+                        <th>Holiday (English)</th>
+                        <th>Month</th>
+                        <th>Day</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>እንቁጣጣሽ</td>
+                        <td>Enkutatash (New Year)</td>
+                        <td>መስከረም (Meskerem)</td>
+                        <td>1</td>
+                    </tr>
+                    <tr>
+                        <td>መስቀል</td>
+                        <td>Meskel (Finding of the True Cross)</td>
+                        <td>መስከረም (Meskerem)</td>
+                        <td>17</td>
+                    </tr>
+                    <tr>
+                        <td>ገና</td>
+                        <td>Genna (Christmas)</td>
+                        <td>ታኅሣሥ (Tahsas)</td>
+                        <td>29</td>
+                    </tr>
+                    <tr>
+                        <td>ጥምቀት</td>
+                        <td>Timkat (Epiphany)</td>
+                        <td>ጥር (Tir)</td>
+                        <td>11</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Troubleshooting -->
+        <section id="troubleshooting" class="section">
+            <h2>🔧 Troubleshooting</h2>
+
+            <h3>Picker doesn't appear</h3>
+            <div class="alert alert-warning">
+                <strong>Problem:</strong> Clicking input doesn't show the picker.
+            </div>
+            <p><strong>Solutions:</strong></p>
+            <ul>
+                <li>Ensure CSS file is loaded before JavaScript</li>
+                <li>Check browser console for errors</li>
+                <li>Verify input element exists in DOM</li>
+                <li>Make sure input has <code>readonly</code> attribute</li>
+            </ul>
+            <div class="code-block"><code>&lt;!-- Correct order --&gt;
+&lt;link rel="stylesheet" href="ethiopian-datepicker.css"&gt;
+&lt;input type="text" id="datepicker" readonly&gt;
+&lt;script src="ethiopian-datepicker.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+  new EthiopianDatePicker('#datepicker');
+&lt;/script&gt;</code></div>
+
+            <h3>Dark mode not working</h3>
+            <div class="alert alert-warning">
+                <strong>Problem:</strong> Setting darkMode: true doesn't apply dark theme.
+            </div>
+            <p><strong>Solution:</strong> Dark mode applies when the picker is opened. For immediate effect, add the
+                class manually:</p>
+            <div class="code-block"><code>const picker = new EthiopianDatePicker('#datepicker', {
+  darkMode: true
+});
+
+// Force dark mode on container
+picker.container.classList.add('dark-mode');</code></div>
+
+            <h3>Multiple pickers conflict</h3>
+            <div class="alert alert-warning">
+                <strong>Problem:</strong> Multiple pickers on the same page interfere with each other.
+            </div>
+            <p><strong>Solution:</strong> Each picker is independent. Make sure each has a unique input element:</p>
+            <div class="code-block"><code>const picker1 = new EthiopianDatePicker('#date1', { locale: 'am' });
+const picker2 = new EthiopianDatePicker('#date2', { locale: 'en' });</code></div>
+
+            <h3>Date conversion seems off</h3>
+            <div class="alert alert-info">
+                The Ethiopian calendar is 7-8 years behind the Gregorian calendar. Conversion is based on standard
+                Ethiopian calendar algorithms. If you notice specific dates that are incorrect, please report as an
+                issue on GitHub.
+            </div>
+        </section>
+
+        <!-- Browser Support -->
+        <section id="browser-support" class="section">
+            <h2>🌐 Browser Support</h2>
+
+            <div class="features">
+                <div class="feature">
+                    <h4>✅ Chrome</h4>
+                    <p>Latest version supported</p>
+                </div>
+                <div class="feature">
+                    <h4>✅ Firefox</h4>
+                    <p>Latest version supported</p>
+                </div>
+                <div class="feature">
+                    <h4>✅ Safari</h4>
+                    <p>Latest version supported</p>
+                </div>
+                <div class="feature">
+                    <h4>✅ Edge</h4>
+                    <p>Latest version supported</p>
+                </div>
+                <div class="feature">
+                    <h4>✅ Mobile</h4>
+                    <p>iOS Safari, Chrome Mobile</p>
+                </div>
+            </div>
+
+            <div class="alert alert-info">
+                <strong>Requirements:</strong> ES6 (ES2015) support required. No IE11 support (use polyfills if needed).
+            </div>
+        </section>
+
+        <!-- Support -->
+        <section id="support" class="section">
+            <h2>📞 Support & Resources</h2>
+
+            <ul>
+                <li><strong>GitHub Repository:</strong> <a
+                        href="https://github.com/Bereketmuniye/date-picker-for-ethiopian"
+                        target="_blank">date-picker-for-ethiopian</a></li>
+                <li><strong>NPM Package:</strong> <a
+                        href="https://www.npmjs.com/package/@bekim_2121/ethiopian-datepicker"
+                        target="_blank">@bekim_2121/ethiopian-datepicker</a></li>
+                <li><strong>Report Issues:</strong> <a
+                        href="https://github.com/Bereketmuniye/date-picker-for-ethiopian/issues" target="_blank">GitHub
+                        Issues</a></li>
+                <li><strong>License:</strong> MIT</li>
+                <li><strong>Author:</strong> Bereket</li>
+            </ul>
+
+            <div class="alert alert-success">
+                <strong>Built with ❤️ for the Ethiopian community</strong>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>&copy; 2024 Ethiopian Date Picker | MIT License</p>
+        <p>Documentation generated for version 1.0.3</p>
+    </div>
+</body>
+
+</html>
