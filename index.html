@@ -101,9 +101,12 @@
     }
 
     .logo-flag {
-      width: 24px;
+      width: 28px;
       height: 18px;
-      background: linear-gradient(to bottom, var(--accent-green) 33.3%, var(--accent-yellow) 33.3%, var(--accent-yellow) 66.6%, var(--accent-red) 66.6%);
+      background-image: url('assets/ethiopia-flag.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
       border-radius: 2px;
     }
 
@@ -660,7 +663,8 @@ picker.options.onChange = (date) => {
         <section id="example-react">
           <h2>React Integration</h2>
           <p>Use the library within a React functional component effortlessly with <code>useRef</code> and
-            <code>useEffect</code>.</p>
+            <code>useEffect</code>.
+          </p>
 
           <div class="code-container">
             <div class="code-header"><span>React / JSX</span><button class="copy-btn">Copy</button></div>
