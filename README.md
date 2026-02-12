@@ -1,0 +1,102 @@
+# 🇪🇹 Ethiopian Date Picker
+
+A professional Ethiopian calendar date picker with accurate Gregorian ↔ Ethiopian conversion. Pure JavaScript, zero dependencies.
+
+## Features
+
+✅ Accurate date conversion • 🌍 Bilingual (Amharic/English) • 🌙 Dark mode • 🎉 Holiday highlighting • ⌨️ Keyboard navigation • ♿ Accessible • 📱 Responsive
+
+## Installation
+
+**NPM**:
+```bash
+npm install ethiopian-datepicker
+```
+
+**CDN**:
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ethiopian-datepicker@1.0.0/dist/ethiopian-datepicker.css">
+<script src="https://cdn.jsdelivr.net/npm/ethiopian-datepicker@1.0.0/dist/ethiopian-datepicker.js"></script>
+```
+
+## Quick Start
+
+```html
+<!-- Input element -->
+<input type="text" id="datepicker" placeholder="ቀን ይምረጡ..." readonly>
+
+<script>
+  // Initialize
+  const picker = new EthiopianDatePicker('#datepicker', {
+    locale: 'am',              // 'am' or 'en'
+    darkMode: false,
+    highlightHolidays: true
+  });
+</script>
+```
+
+## Configuration
+
+```javascript
+new EthiopianDatePicker('#input', {
+  locale: 'am',                    // Language
+  darkMode: false,                 // Theme
+  highlightHolidays: true,         // Holidays
+  minDate: new Date(),             // Min date
+  maxDate: new Date('2025-12-31'), // Max date
+  onChange: (date) => {            // Callback
+    console.log(date.formatted);
+  }
+});
+```
+
+## API
+
+```javascript
+picker.getSelectedDate()        // Get selected date
+picker.setDate(2017, 1, 1)      // Set date
+picker.open()                   // Open picker
+picker.close()                  // Close picker
+```
+
+## Ethiopian Calendar Utilities
+
+```javascript
+const calendar = new EthiopianCalendar();
+
+// Convert dates
+const ethDate = calendar.gregorianToEthiopian(new Date());
+const gregDate = calendar.ethiopianToGregorian(2017, 5, 4);
+
+// Format dates
+const formatted = calendar.formatDate(2017, 1, 1, 'am');
+// Returns: "1 መስከረም 2017"
+
+// Check holidays
+const holiday = calendar.isHoliday(1, 1);
+// Returns: { month: 1, day: 1, name: { am: 'እንቁጣጣሽ', en: 'Enkutatash' } }
+```
+
+## Ethiopian Holidays
+
+- **እንቁጣጣሽ** (Enkutatash) - New Year - Meskerem 1
+- **መስቀል** (Meskel) - Meskerem 17
+- **ገና** (Genna) - Christmas - Tahsas 29
+- **ጥምቀት** (Timkat) - Epiphany - Tir 11
+- **ፋሲካ** (Fasika) - Easter - Megabit 25
+
+## Demo
+
+Open `index.html` in your browser to see live examples.
+
+## Browser Support
+
+Chrome, Firefox, Safari, Edge (latest versions)
+
+## License
+
+MIT © Bereket
+
+---
+
+**Built with ❤️ for the Ethiopian community**

@@ -1,0 +1,492 @@
+/**
+ * Ethiopian Date Picker Styles
+ * Premium, modern design with Ethiopian color accents
+ */
+
+/* Google Font Import - Noto Sans Ethiopic for Amharic */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Ethiopic:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+  /* Ethiopian Flag Colors */
+  --ethio-green: #078930;
+  --ethio-yellow: #FCDD09;
+  --ethio-red: #DA121A;
+  
+  /* Modern Color Palette */
+  --primary: #2563eb;
+  --primary-dark: #1e40af;
+  --primary-light: #60a5fa;
+  
+  /* Neutral Colors */
+  --white: #ffffff;
+  --gray-50: #f9fafb;
+  --gray-100: #f3f4f6;
+  --gray-200: #e5e7eb;
+  --gray-300: #d1d5db;
+  --gray-400: #9ca3af;
+  --gray-500: #6b7280;
+  --gray-600: #4b5563;
+  --gray-700: #374151;
+  --gray-800: #1f2937;
+  --gray-900: #111827;
+  
+  /* Semantic Colors */
+  --success: #10b981;
+  --warning: #f59e0b;
+  --error: #ef4444;
+  
+  /* Spacing */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  
+  /* Border Radius */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  
+  /* Typography */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-ethiopic: 'Noto Sans Ethiopic', 'Nyala', 'Ethiopia Jiret', sans-serif;
+  
+  /* Transitions */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Dark Mode Variables */
+.ethio-datepicker.dark-mode {
+  --bg-primary: var(--gray-900);
+  --bg-secondary: var(--gray-800);
+  --bg-tertiary: var(--gray-700);
+  --text-primary: var(--gray-100);
+  --text-secondary: var(--gray-300);
+  --text-tertiary: var(--gray-400);
+  --border-color: var(--gray-700);
+  --hover-bg: var(--gray-700);
+  --selected-bg: var(--primary);
+  --selected-text: var(--white);
+}
+
+/* Light Mode Variables (Default) */
+.ethio-datepicker:not(.dark-mode) {
+  --bg-primary: var(--white);
+  --bg-secondary: var(--gray-50);
+  --bg-tertiary: var(--gray-100);
+  --text-primary: var(--gray-900);
+  --text-secondary: var(--gray-700);
+  --text-tertiary: var(--gray-500);
+  --border-color: var(--gray-200);
+  --hover-bg: var(--gray-50);
+  --selected-bg: var(--primary);
+  --selected-text: var(--white);
+}
+
+/* Main Container */
+.ethio-datepicker {
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-xl);
+  width: 320px;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(-10px) scale(0.95);
+  transition: opacity var(--transition-base), 
+              transform var(--transition-base);
+  user-select: none;
+}
+
+/* Open State Animation */
+.ethio-datepicker.open {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Header */
+.ethio-datepicker-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-md);
+  background: linear-gradient(135deg, var(--ethio-green) 0%, var(--ethio-green) 33%, var(--ethio-yellow) 33%, var(--ethio-yellow) 66%, var(--ethio-red) 66%, var(--ethio-red) 100%);
+  background-size: 100% 4px;
+  background-repeat: no-repeat;
+  background-position: bottom;
+  border-bottom: 1px solid var(--border-color);
+  position: relative;
+}
+
+.ethio-datepicker-header::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, 
+    var(--ethio-green) 0%, 
+    var(--ethio-green) 33%, 
+    var(--ethio-yellow) 33%, 
+    var(--ethio-yellow) 66%, 
+    var(--ethio-red) 66%, 
+    var(--ethio-red) 100%);
+}
+
+/* Navigation Buttons */
+.ethio-nav-btn {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-md);
+  font-size: 1.25rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-fast);
+}
+
+.ethio-nav-btn:hover {
+  background: var(--hover-bg);
+  border-color: var(--primary);
+  color: var(--primary);
+  transform: scale(1.05);
+}
+
+.ethio-nav-btn:active {
+  transform: scale(0.95);
+}
+
+/* Month/Year Display */
+.ethio-month-year {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  font-family: var(--font-ethiopic), var(--font-sans);
+  flex: 1;
+  text-align: center;
+  letter-spacing: 0.5px;
+}
+
+/* Language Toggle */
+.ethio-lang-toggle {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  padding: 0.375rem 0.75rem;
+  border-radius: var(--radius-md);
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin: 0 var(--spacing-sm);
+  transition: all var(--transition-fast);
+}
+
+.ethio-lang-toggle:hover {
+  background: var(--primary);
+  color: var(--white);
+  border-color: var(--primary);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Calendar Grid */
+.ethio-calendar-grid {
+  padding: var(--spacing-md);
+}
+
+/* Day Headers */
+.ethio-day-headers {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: var(--spacing-xs);
+  margin-bottom: var(--spacing-sm);
+}
+
+.ethio-day-header {
+  text-align: center;
+  font-weight: 600;
+  font-size: 0.75rem;
+  color: var(--text-tertiary);
+  padding: var(--spacing-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Days Grid */
+.ethio-days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: var(--spacing-xs);
+}
+
+/* Day Cell */
+.ethio-day {
+  aspect-ratio: 1;
+  border: 1px solid transparent;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Ripple Effect */
+.ethio-day::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle, var(--primary-light) 0%, transparent 70%);
+  opacity: 0;
+  transform: scale(0);
+  transition: opacity var(--transition-fast), transform var(--transition-fast);
+}
+
+.ethio-day:active::before {
+  opacity: 0.3;
+  transform: scale(1);
+}
+
+/* Empty Day */
+.ethio-day.empty {
+  background: transparent;
+  cursor: default;
+  pointer-events: none;
+}
+
+/* Hover State */
+.ethio-day:not(.empty):not(.disabled):hover {
+  background: var(--hover-bg);
+  border-color: var(--primary-light);
+  transform: scale(1.1);
+  box-shadow: var(--shadow-md);
+  z-index: 1;
+}
+
+/* Today */
+.ethio-day.today {
+  border-color: var(--primary);
+  font-weight: 700;
+  color: var(--primary);
+}
+
+/* Selected */
+.ethio-day.selected {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  color: var(--white);
+  border-color: var(--primary-dark);
+  font-weight: 700;
+  box-shadow: var(--shadow-md);
+  transform: scale(1.05);
+}
+
+.ethio-day.selected:hover {
+  transform: scale(1.15);
+}
+
+/* Holiday */
+.ethio-day.holiday {
+  background: linear-gradient(135deg, var(--ethio-yellow) 0%, var(--ethio-red) 100%);
+  color: var(--gray-900);
+  font-weight: 600;
+}
+
+.ethio-day.holiday:not(.selected):hover {
+  box-shadow: 0 0 0 2px var(--ethio-red);
+}
+
+/* Disabled */
+.ethio-day.disabled {
+  background: var(--bg-tertiary);
+  color: var(--text-tertiary);
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Footer */
+.ethio-datepicker-footer {
+  display: flex;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md);
+  border-top: 1px solid var(--border-color);
+  background: var(--bg-secondary);
+}
+
+/* Footer Buttons */
+.ethio-today-btn,
+.ethio-close-btn {
+  flex: 1;
+  padding: 0.625rem var(--spacing-md);
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  border: 1px solid var(--border-color);
+}
+
+.ethio-today-btn {
+  background: var(--primary);
+  color: var(--white);
+  border-color: var(--primary);
+}
+
+.ethio-today-btn:hover {
+  background: var(--primary-dark);
+  border-color: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.ethio-close-btn {
+  background: var(--bg-primary);
+  color: var(--text-secondary);
+}
+
+.ethio-close-btn:hover {
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Focus Styles for Accessibility */
+.ethio-day:focus,
+.ethio-nav-btn:focus,
+.ethio-lang-toggle:focus,
+.ethio-today-btn:focus,
+.ethio-close-btn:focus {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* Ethiopic Font for Amharic Text */
+.ethio-datepicker-header,
+.ethio-day-header,
+.ethio-month-year,
+.ethio-today-btn,
+.ethio-close-btn {
+  font-family: var(--font-ethiopic), var(--font-sans);
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+  .ethio-datepicker {
+    width: 100%;
+    max-width: 350px;
+    margin: 0 auto;
+  }
+  
+  .ethio-day {
+    font-size: 0.8rem;
+  }
+  
+  .ethio-month-year {
+    font-size: 0.9rem;
+  }
+}
+
+/* Animation Keyframes */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+/* Pulse animation for selected day */
+.ethio-day.selected {
+  animation: pulse 2s infinite;
+}
+
+/* Smooth scrolling for better UX */
+* {
+  box-sizing: border-box;
+}
+
+/* Print Styles */
+@media print {
+  .ethio-datepicker {
+    display: none !important;
+  }
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+  .ethio-datepicker {
+    border-width: 2px;
+  }
+  
+  .ethio-day {
+    border-width: 2px;
+  }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  .ethio-datepicker,
+  .ethio-day,
+  .ethio-nav-btn,
+  .ethio-lang-toggle,
+  .ethio-today-btn,
+  .ethio-close-btn {
+    transition: none;
+    animation: none;
+  }
+}
+
+/* Custom Scrollbar (if needed for year/month select in future) */
+.ethio-datepicker ::-webkit-scrollbar {
+  width: 8px;
+}
+
+.ethio-datepicker ::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+  border-radius: var(--radius-sm);
+}
+
+.ethio-datepicker ::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: var(--radius-sm);
+}
+
+.ethio-datepicker ::-webkit-scrollbar-thumb:hover {
+  background: var(--text-tertiary);
+}

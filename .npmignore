@@ -1,0 +1,19 @@
+# Demo files
+index.html
+index.html.backup
+
+# Development files
+.git
+.gitignore
+.DS_Store
+*.log
+
+# Source files (we only publish dist/)
+js/
+css/
+
+# Node modules
+node_modules/
+
+# Build script
+build.js
