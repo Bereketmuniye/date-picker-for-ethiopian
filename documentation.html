@@ -518,18 +518,18 @@
                     <div class="code-container">
                         <div class="code-header"><span>Javascript</span><button class="copy-btn">Copy</button></div>
                         <pre><code>// 1. Identify your input element
-const input = document.querySelector('#my-date-input');
+                            const input = document.querySelector('#my-date-input');
 
-// 2. Initialize the picker
-const picker = new EthiopianDatePicker(input, {
-  locale: 'am',           // Amharic locale
-  highlightHolidays: true // Highlighting celebrations
-});
+                            // 2. Initialize the picker
+                            const picker = new EthiopianDatePicker(input, {
+                            locale: 'am',           // Amharic locale
+                            highlightHolidays: true // Highlighting celebrations
+                            });
 
-// 3. Listen for changes
-picker.options.onChange = (date) => {
-  console.log('User selected:', date.formatted);
-};</code></pre>
+                            // 3. Listen for changes
+                            picker.options.onChange = (date) => {
+                            console.log('User selected:', date.formatted);
+                            };</code></pre>
                     </div>
 
                     <div class="alert alert-info">
@@ -589,12 +589,13 @@ picker.options.onChange = (date) => {
                     <p>Returns the currently selected date as a structured object.</p>
                     <div class="code-container">
                         <pre><code>{
-  year: 2017,
-  month: 1,
-  day: 1,
-  formatted: "መስከረም 1, 2017",
-  gregorian: Date // Standard JS Date
-}</code></pre>
+                                year: 2017,
+                                month: 1,
+                                day: 1,
+                                formatted: "መስከረም 1, 2017",
+                                gregorian: Date // Standard JS Date
+                                }</code>
+                        </pre>
                     </div>
 
                     <h3><code>setDate(y, m, d)</code></h3>
@@ -613,18 +614,18 @@ picker.options.onChange = (date) => {
                         <div class="code-header"><span>React / JSX</span><button class="copy-btn">Copy</button></div>
                         <pre><code>import { useEffect, useRef } from 'react';
 
-const EthDatePicker = ({ onDateSelect }) => {
-  const inputRef = useRef(null);
+                            const EthDatePicker = ({ onDateSelect }) => {
+                            const inputRef = useRef(null);
 
-  useEffect(() => {
-    const inst = new EthiopianDatePicker(inputRef.current, {
-      onChange: (date) => onDateSelect(date)
-    });
-    return () => inst.destroy();
-  }, [onDateSelect]);
+                            useEffect(() => {
+                                const inst = new EthiopianDatePicker(inputRef.current, {
+                                onChange: (date) => onDateSelect(date)
+                                });
+                                return () => inst.destroy();
+                            }, [onDateSelect]);
 
-  return &lt;input ref={inputRef} readOnly /&gt;;
-};</code></pre>
+                            return &lt;input ref={inputRef} readOnly /&gt;;
+                            };</code></pre>
                     </div>
                 </section>
 
