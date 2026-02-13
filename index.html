@@ -785,8 +785,11 @@ const EthDatePicker = ({ onDateSelect }) => {
 
       <footer
         style="margin-top: 6rem; border-top: 1px solid var(--border); padding-top: 2rem; color: var(--text-muted); font-size: 0.875rem; text-align: center;">
-        &copy; 2024 Ethiopian Date Picker Library. Released under MIT License.
+        &copy; <span id="currentYear"></span> Ethiopian Date Picker Library. Released under MIT License.
       </footer>
+      <script>
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+      </script>
     </main>
   </div>
 
