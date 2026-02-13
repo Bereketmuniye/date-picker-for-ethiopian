@@ -74,7 +74,7 @@ class EthiopianCalendar {
 
         // Ethiopian new year (Meskerem 1) corresponds to September 11 or 12
         const ethiopianNewYear = this.isGregorianLeapYear(year) ? 12 : 11;
-        
+
         let ethYear, ethMonth, ethDay;
 
         // Determine Ethiopian year
@@ -87,14 +87,14 @@ class EthiopianCalendar {
         // Create reference date for Ethiopian new year
         const newYearDate = new Date(year, 8, ethiopianNewYear); // month 8 = September
         newYearDate.setHours(0, 0, 0, 0);
-        
+
         // Create current date reference
         const currentDate = new Date(year, month - 1, day);
         currentDate.setHours(0, 0, 0, 0);
 
         // Calculate days since Ethiopian new year
         let daysSinceNewYear;
-        
+
         if (currentDate < newYearDate) {
             // Before Ethiopian new year, use previous year's new year
             const prevNewYearDate = new Date(year - 1, 8, this.isGregorianLeapYear(year - 1) ? 12 : 11);
@@ -275,7 +275,4 @@ class EthiopianCalendar {
     }
 }
 
-// Export for use in other modules
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = EthiopianCalendar;
-}
+// End of Calendar

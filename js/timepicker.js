@@ -309,6 +309,4 @@ class EthiopianTimePicker {
     }
 }
 
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = EthiopianTimePicker;
-}
+// End of TimePicker

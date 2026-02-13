@@ -10,7 +10,7 @@
     "LICENSE"
   ],
   "scripts": {
-    "build": "cat js/ethiopian-calendar.js js/datepicker.js js/timepicker.js > dist/ethiopian-datepicker.js && cat css/datepicker.css css/timepicker.css > dist/ethiopian-datepicker.css",
+    "build": "mkdir -p dist && cat js/ethiopian-calendar.js js/datepicker.js js/timepicker.js > dist/ethiopian-datepicker.js && echo 'if (typeof module !== \"undefined\" && module.exports) { module.exports = { EthiopianCalendar, EthiopianDatePicker, EthiopianTimePicker }; } else { window.EthiopianCalendar = EthiopianCalendar; window.EthiopianDatePicker = EthiopianDatePicker; window.EthiopianTimePicker = EthiopianTimePicker; }' >> dist/ethiopian-datepicker.js && cat css/datepicker.css css/timepicker.css > dist/ethiopian-datepicker.css",
     "prepublishOnly": "npm run build"
   },
   "keywords": [

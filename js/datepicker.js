@@ -550,7 +550,4 @@ class EthiopianDatePicker {
     }
 }
 
-// Export for use in other modules
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = EthiopianDatePicker;
-}
+// End of DatePicker
