@@ -287,7 +287,8 @@ class EthiopianDatePicker {
             yearBtn.className = 'ethio-year-cell';
             if (y === currentYear) yearBtn.classList.add('selected');
             yearBtn.textContent = y;
-            yearBtn.addEventListener('click', () => {
+            yearBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
                 this.currentView.year = y;
                 this.renderDays();
             });
