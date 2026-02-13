@@ -449,7 +449,7 @@
       Ethiopian Date Picker
     </a>
     <div class="header-actions">
-      <a href="https://github.com/Bereketmuniye/date-picker-for-ethiopian" class="badge" target="_blank">v1.1.1</a>
+      <a href="https://github.com/Bereketmuniye/date-picker-for-ethiopian" class="badge" target="_blank">v1.1.2</a>
       <button class="theme-toggle" id="themeToggle" title="Toggle Theme">
         <svg id="sunIcon" style="display:none" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
           viewBox="0 0 24 24">
@@ -486,6 +486,7 @@
         <a href="#api-datepicker" class="nav-link">DatePicker API</a>
         <a href="#api-timepicker" class="nav-link">TimePicker API</a>
         <a href="#api-calendar" class="nav-link">Calendar Utilities</a>
+        <a href="#age-calculation" class="nav-link">Age Calculation</a>
       </div>
       <div class="nav-group">
         <div class="nav-title">Guided Examples</div>
@@ -744,6 +745,33 @@ const timePicker = new EthiopianTimePicker('#my-time-input', {
           </div>
         </section>
 
+        <section id="age-calculation">
+          <h2>Age Calculation</h2>
+          <p>Easily calculate age based on an Ethiopian birthdate. This utility handles the 7-8 year difference and
+            calculates precise years, months, and days.</p>
+
+          <div class="demo-section">
+            <div class="card-grid">
+              <div class="form-group">
+                <label>Select Birth Date (Ethiopian)</label>
+                <input type="text" id="age-birthdate" class="form-input" placeholder="ልደትዎን ይምረጡ..." readonly>
+              </div>
+            </div>
+            <div class="alert alert-info">
+              <p id="age-result">Select your birth date to calculate your age.</p>
+            </div>
+          </div>
+
+          <div class="code-container">
+            <div class="code-header"><span>Javascript</span><button class="copy-btn">Copy</button></div>
+            <pre><code>const calendar = new EthiopianCalendar();
+const birthDate = { year: 1990, month: 1, day: 1 };
+const age = calendar.calculateAge(birthDate.year, birthDate.month, birthDate.day);
+
+console.log(`Age: ${age.years} years, ${age.months} months, and ${age.days} days`);</code></pre>
+          </div>
+        </section>
+
         <section id="example-react">
           <h2>React Integration</h2>
           <p>Use the library within a React functional component effortlessly with <code>useRef</code> and
@@ -819,6 +847,23 @@ const EthDatePicker = ({ onDateSelect }) => {
     const demoTime = new EthiopianTimePicker('#demo-time', {
       onChange: (time) => {
         document.getElementById('time-log').innerHTML = `<strong>Selected:</strong> ${time.formatted} <br> <strong>JSON:</strong> <code>${JSON.stringify(time)}</code>`;
+      }
+    });
+
+
+
+    // --- Age Calculation Demo ---
+    const agePicker = new EthiopianDatePicker('#age-birthdate', {
+      onChange: (date) => {
+        const calendar = new EthiopianCalendar();
+        const age = calendar.calculateAge(date.ethiopian.year, date.ethiopian.month, date.ethiopian.day);
+        const result = document.getElementById('age-result');
+
+        if (agePicker.options.locale === 'am') {
+          result.innerHTML = `<strong>እድሜዎ:</strong> ${age.years} ዓመት፣ ${age.months} ወር እና ${age.days} ቀን`;
+        } else {
+          result.innerHTML = `<strong>Your Age:</strong> ${age.years} years, ${age.months} months, and ${age.days} days`;
+        }
       }
     });
 

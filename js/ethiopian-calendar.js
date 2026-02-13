@@ -273,6 +273,38 @@ class EthiopianCalendar {
     today() {
         return this.gregorianToEthiopian(new Date());
     }
+
+    /**
+     * Calculate age based on Ethiopian birthdate
+     * @param {number} birthYear 
+     * @param {number} birthMonth 
+     * @param {number} birthDay 
+     * @returns {object} Age in years, months, and days
+     */
+    calculateAge(birthYear, birthMonth, birthDay) {
+        const today = this.today();
+
+        // 1. Calculate Full Years
+        let years = today.year - birthYear;
+        if (today.month < birthMonth || (today.month === birthMonth && today.day < birthDay)) {
+            years--;
+        }
+
+        // 2. Calculate remaining Days from the last year-anniversary
+        const lastAnniversaryYear = birthYear + years;
+        const gregAnniversary = this.ethiopianToGregorian(lastAnniversaryYear, birthMonth, birthDay);
+        const gregToday = this.ethiopianToGregorian(today.year, today.month, today.day);
+
+        const diffMs = gregToday.getTime() - gregAnniversary.getTime();
+        const totalRemainderDays = Math.max(0, Math.floor(diffMs / (1000 * 60 * 60 * 24)));
+
+        // 3. Convert remainder days to months and days
+        // Every 30 days is 1 month. This correctly accounts for Pagume as extra days.
+        const months = Math.floor(totalRemainderDays / 30);
+        const days = totalRemainderDays % 30;
+
+        return { years, months, days };
+    }
 }
 
 // End of Calendar
