@@ -38,7 +38,7 @@ class EthiopianDatePicker {
 
         // State
         this.isOpen = false;
-        this.isYearView = false;
+        this.view = 'days'; // 'days', 'months', 'years'
         this.selectedDate = null;
         this.currentView = this.calendar.today();
 
@@ -107,11 +107,15 @@ class EthiopianDatePicker {
         monthYearDisplay.className = 'ethio-month-year';
         this.monthYearDisplay = monthYearDisplay;
 
-        // Make year clickable
+        // Make month/year segments clickable
         monthYearDisplay.addEventListener('click', (e) => {
-            if (e.target.classList.contains('year-segment') || e.target.classList.contains('year-range')) {
-                e.stopPropagation(); // Prevent closing when element is removed from DOM
-                this.toggleYearView();
+            e.stopPropagation();
+            if (e.target.classList.contains('month-segment')) {
+                this.view = 'months';
+                this.render();
+            } else if (e.target.classList.contains('year-segment') || e.target.classList.contains('year-range')) {
+                this.view = 'years';
+                this.render();
             }
         });
 
@@ -190,13 +194,26 @@ class EthiopianDatePicker {
     }
 
     /**
+     * Master render method to choose which view to show
+     */
+    render() {
+        if (this.view === 'years') {
+            this.renderYearGrid();
+        } else if (this.view === 'months') {
+            this.renderMonthGrid();
+        } else {
+            this.renderDays();
+        }
+    }
+
+    /**
      * Render calendar days
      */
     renderDays() {
-        this.isYearView = false;
+        this.view = 'days';
         const days = this.calendar.getMonthDays(this.currentView.year, this.currentView.month);
         this.daysContainer.innerHTML = '';
-        this.daysContainer.className = 'ethio-days'; // Ensure correct class
+        this.daysContainer.className = 'ethio-days';
 
         days.forEach((dayData, index) => {
             const dayElement = document.createElement('button');
@@ -256,25 +273,39 @@ class EthiopianDatePicker {
      */
     updateMonthYearDisplay() {
         const monthName = this.calendar.getMonthName(this.currentView.month, this.options.locale);
-        this.monthYearDisplay.innerHTML = `<span>${monthName}</span> <span class="year-segment">${this.currentView.year}</span>`;
+        this.monthYearDisplay.innerHTML = `<span class="month-segment">${monthName}</span> <span class="year-segment">${this.currentView.year}</span>`;
     }
 
     /**
-     * Toggle between month and year views
+     * Render a grid of months
      */
-    toggleYearView() {
-        this.isYearView = !this.isYearView;
-        if (this.isYearView) {
-            this.renderYearGrid();
-        } else {
-            this.renderDays();
+    renderMonthGrid() {
+        this.view = 'months';
+        this.daysContainer.innerHTML = '';
+        this.daysContainer.className = 'ethio-month-grid';
+
+        for (let m = 1; m <= 13; m++) {
+            const monthBtn = document.createElement('button');
+            monthBtn.className = 'ethio-month-cell';
+            if (m === this.currentView.month) monthBtn.classList.add('selected');
+            monthBtn.textContent = this.calendar.getMonthName(m, this.options.locale);
+            monthBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                this.currentView.month = m;
+                this.view = 'days';
+                this.render();
+            });
+            this.daysContainer.appendChild(monthBtn);
         }
+
+        this.monthYearDisplay.innerHTML = `<span class="year-segment">${this.currentView.year}</span>`;
     }
 
     /**
      * Render a grid of years for quick selection
      */
     renderYearGrid() {
+        this.view = 'years';
         this.daysContainer.innerHTML = '';
         this.daysContainer.className = 'ethio-year-grid';
 
@@ -290,7 +321,8 @@ class EthiopianDatePicker {
             yearBtn.addEventListener('click', (e) => {
                 e.stopPropagation();
                 this.currentView.year = y;
-                this.renderDays();
+                this.view = 'months';
+                this.render();
             });
             this.daysContainer.appendChild(yearBtn);
         }
@@ -328,9 +360,14 @@ class EthiopianDatePicker {
      * Navigate to previous month
      */
     previousMonth() {
-        if (this.isYearView) {
+        if (this.view === 'years') {
             this.currentView.year -= 25;
-            this.renderYearGrid();
+            this.render();
+            return;
+        }
+        if (this.view === 'months') {
+            this.currentView.year--;
+            this.render();
             return;
         }
         if (this.currentView.month === 1) {
@@ -339,16 +376,21 @@ class EthiopianDatePicker {
         } else {
             this.currentView.month--;
         }
-        this.renderDays();
+        this.render();
     }
 
     /**
      * Navigate to next month
      */
     nextMonth() {
-        if (this.isYearView) {
+        if (this.view === 'years') {
             this.currentView.year += 25;
-            this.renderYearGrid();
+            this.render();
+            return;
+        }
+        if (this.view === 'months') {
+            this.currentView.year++;
+            this.render();
             return;
         }
         if (this.currentView.month === 13) {
@@ -357,7 +399,7 @@ class EthiopianDatePicker {
         } else {
             this.currentView.month++;
         }
-        this.renderDays();
+        this.render();
     }
 
     /**
@@ -542,7 +584,7 @@ class EthiopianDatePicker {
 
         this.isOpen = true;
         this.positionPicker();
-        this.renderDays();
+        this.render();
         this.container.style.display = 'block';
 
         // Animate in
@@ -606,7 +648,7 @@ class EthiopianDatePicker {
         this.currentView = { year, month, day };
         this.updateInputValue();
         if (this.isOpen) {
-            this.renderDays();
+            this.render();
         }
     }
 }

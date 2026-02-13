@@ -185,17 +185,21 @@
 }
 
 .ethio-month-year .year-segment,
+.ethio-month-year .month-segment,
 .ethio-month-year .year-range {
   cursor: pointer;
-  padding: 2px 4px;
+  padding: 2px 6px;
   border-radius: var(--radius-sm);
-  transition: background var(--transition-fast);
+  transition: all var(--transition-fast);
+  display: inline-block;
 }
 
 .ethio-month-year .year-segment:hover,
+.ethio-month-year .month-segment:hover,
 .ethio-month-year .year-range:hover {
-  background: var(--bg-tertiary);
-  color: var(--primary);
+  background: rgba(255, 255, 255, 0.2);
+  color: var(--white);
+  transform: translateY(-1px);
 }
 
 /* Language Toggle */
@@ -372,6 +376,41 @@
 }
 
 .ethio-year-cell.selected {
+  background: var(--primary);
+  color: var(--white);
+  border-color: var(--primary-dark);
+}
+
+/* Month Grid View */
+.ethio-month-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm) 0;
+}
+
+.ethio-month-cell {
+  padding: var(--spacing-md) var(--spacing-sm);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  text-align: center;
+  font-family: var(--font-ethiopic), var(--font-sans);
+}
+
+.ethio-month-cell:hover {
+  background: var(--hover-bg);
+  border-color: var(--primary);
+  color: var(--primary);
+  transform: scale(1.02);
+}
+
+.ethio-month-cell.selected {
   background: var(--primary);
   color: var(--white);
   border-color: var(--primary-dark);
