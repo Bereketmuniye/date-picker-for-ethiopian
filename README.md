@@ -1,10 +1,10 @@
-# 🇪🇹 Ethiopian Date Picker
+# 🇪🇹 Ethiopian Date & Time Picker
 
-A professional Ethiopian calendar date picker with accurate Gregorian ↔ Ethiopian conversion. Pure JavaScript, zero dependencies.
+A professional Ethiopian calendar date and time picker with accurate Gregorian ↔ Ethiopian conversion. Pure JavaScript, zero dependencies.
 
 ## Features
 
-✅ Accurate date conversion • 🌍 Bilingual (Amharic/English) • 🌙 Dark mode • 🎉 Holiday highlighting • ⌨️ Keyboard navigation • ♿ Accessible • 📱 Responsive
+✅ Accurate date & time conversion • 🌍 Bilingual (Amharic/English) • 🌅 Native Ethiopian Time (6h offset) • 🌙 Dark mode • 🎉 Holiday highlighting • ⌨️ Keyboard navigation • ♿ Accessible • 📱 Responsive
 
 ## Installation
 
@@ -24,13 +24,19 @@ npm install ethiopian-datepicker
 ```html
 <!-- Input element -->
 <input type="text" id="datepicker" placeholder="ቀን ይምረጡ..." readonly>
+<input type="text" id="timepicker" placeholder="ሰዓት ይምረጡ..." readonly>
 
 <script>
-  // Initialize
-  const picker = new EthiopianDatePicker('#datepicker', {
+  // Initialize Date Picker
+  new EthiopianDatePicker('#datepicker', {
     locale: 'am',              // 'am' or 'en'
-    darkMode: false,
-    highlightHolidays: true
+    darkMode: false
+  });
+
+  // Initialize Time Picker
+  new EthiopianTimePicker('#timepicker', {
+    useEthiopianTime: true,   // Native 6-hour offset
+    darkMode: false
   });
 </script>
 ```
@@ -44,8 +50,20 @@ new EthiopianDatePicker('#input', {
   highlightHolidays: true,         // Holidays
   minDate: new Date(),             // Min date
   maxDate: new Date('2025-12-31'), // Max date
-  onChange: (date) => {            // Callback
-    console.log(date.formatted);
+  onChange: (date) => console.log(date.formatted)
+});
+```
+
+### Time Picker
+
+```javascript
+new EthiopianTimePicker('#input', {
+  useEthiopianTime: true, // Native 6-hour offset (Sunrise = 12:00)
+  twelveHour: true,       // 12-hour cycle with Day/Night labels
+  darkMode: false,        // Theme
+  onChange: (time) => {
+    console.log('Ethiopian:', time.ethiopian.formatted);
+    console.log('Gregorian Hours:', time.gregorian.hours);
   }
 });
 ```

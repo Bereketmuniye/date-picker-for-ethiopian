@@ -1,0 +1,172 @@
+/* Ethiopian Time Picker Styles */
+
+.ethio-timepicker {
+    width: 260px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e2e8f0;
+    overflow: hidden;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    user-select: none;
+    transition: opacity 0.2s, transform 0.2s;
+}
+
+.ethio-timepicker.dark-mode {
+    background: #1e293b;
+    border-color: #334155;
+    color: #f8fafc;
+}
+
+.ethio-timepicker-header {
+    background: #2563eb;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+}
+
+.ethio-time-display {
+    font-size: 2.5rem;
+    font-weight: 700;
+}
+
+.ethio-time-unit {
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+
+.ethio-time-unit.active {
+    opacity: 1;
+}
+
+.ethio-time-period {
+    font-size: 1rem;
+    margin-left: 8px;
+    font-weight: 500;
+}
+
+.ethio-timepicker-body {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ethio-clock-face {
+    width: 200px;
+    height: 200px;
+    background: #f1f5f9;
+    border-radius: 50%;
+    position: relative;
+}
+
+.dark-mode .ethio-clock-face {
+    background: #0f172a;
+}
+
+.ethio-clock-center {
+    width: 8px;
+    height: 8px;
+    background: #2563eb;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+}
+
+.ethio-clock-hand {
+    width: 2px;
+    height: 90px;
+    background: #2563eb;
+    position: absolute;
+    bottom: 50%;
+    left: 50%;
+    transform-origin: bottom center;
+    z-index: 1;
+}
+
+.ethio-clock-hand::after {
+    content: '';
+    width: 30px;
+    height: 30px;
+    background: rgba(37, 99, 235, 0.2);
+    border-radius: 50%;
+    position: absolute;
+    top: -15px;
+    left: -14px;
+    border: 2px solid #2563eb;
+}
+
+.ethio-clock-numbers {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.ethio-clock-number {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    font-size: 0.875rem;
+    cursor: pointer;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    margin-top: -15px;
+    margin-left: -15px;
+    transition: background 0.2s;
+}
+
+.ethio-clock-number:hover {
+    background: rgba(37, 99, 235, 0.1);
+}
+
+.ethio-timepicker-footer {
+    padding: 10px 15px;
+    display: flex;
+    gap: 8px;
+    border-top: 1px solid #e2e8f0;
+}
+
+.dark-mode .ethio-timepicker-footer {
+    border-color: #334155;
+}
+
+.ethio-period-btn,
+.ethio-time-ok {
+    padding: 6px 12px;
+    border-radius: 6px;
+    border: none;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.ethio-period-btn {
+    background: transparent;
+    color: #64748b;
+}
+
+.ethio-period-btn.active {
+    background: rgba(37, 99, 235, 0.1);
+    color: #2563eb;
+}
+
+.ethio-time-ok {
+    background: #2563eb;
+    color: #fff;
+}
+
+.ethio-time-ok:hover {
+    background: #1d4ed8;
+}
+
+.ethio-filler {
+    flex: 1;
+}

@@ -14,6 +14,7 @@
 
   <!-- Date Picker Styles (Local) -->
   <link rel="stylesheet" href="css/datepicker.css">
+  <link rel="stylesheet" href="css/timepicker.css">
 
   <style>
     :root {
@@ -448,7 +449,7 @@
       Ethiopian Date Picker
     </a>
     <div class="header-actions">
-      <a href="https://github.com/Bereketmuniye/date-picker-for-ethiopian" class="badge" target="_blank">v1.0.5</a>
+      <a href="https://github.com/Bereketmuniye/date-picker-for-ethiopian" class="badge" target="_blank">v1.1.1</a>
       <button class="theme-toggle" id="themeToggle" title="Toggle Theme">
         <svg id="sunIcon" style="display:none" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
           viewBox="0 0 24 24">
@@ -483,6 +484,7 @@
         <div class="nav-title">Reference</div>
         <a href="#configuration" class="nav-link">Configuration</a>
         <a href="#api-datepicker" class="nav-link">DatePicker API</a>
+        <a href="#api-timepicker" class="nav-link">TimePicker API</a>
         <a href="#api-calendar" class="nav-link">Calendar Utilities</a>
       </div>
       <div class="nav-group">
@@ -550,6 +552,20 @@
               <p id="demo-log">Select a date above to see the data structure here.</p>
             </div>
           </div>
+
+          <h3>Time Picker (New)</h3>
+          <p>A standalone time picker which matches the library aesthetic.</p>
+          <div class="demo-section">
+            <div class="card-grid">
+              <div class="form-group">
+                <label>Native Ethiopian Time (12h)</label>
+                <input type="text" id="demo-time" class="form-input" placeholder="ሰዓት ይምረጡ..." readonly>
+              </div>
+            </div>
+            <div class="alert alert-info">
+              <p id="time-log">Select a time above.</p>
+            </div>
+          </div>
         </section>
 
         <section id="installation">
@@ -591,6 +607,20 @@ const picker = new EthiopianDatePicker(input, {
 picker.options.onChange = (date) => {
   console.log('User selected:', date.formatted);
 };</code></pre>
+          </div>
+
+          <h3>Time Picker Quick Start</h3>
+          <div class="code-container">
+            <div class="code-header"><span>Javascript</span><button class="copy-btn">Copy</button></div>
+            <pre><code>// Initialize the time picker
+const timePicker = new EthiopianTimePicker('#my-time-input', {
+  useEthiopianTime: true, // Native 6-hour offset (Sunrise = 12:00)
+  darkMode: false,
+  onChange: (time) => {
+    console.log('Ethiopian:', time.ethiopian.formatted);
+    console.log('Gregorian Hours:', time.gregorian.hours);
+  }
+});</code></pre>
           </div>
         </section>
 
@@ -636,6 +666,41 @@ picker.options.onChange = (date) => {
               </tbody>
             </table>
           </div>
+
+          <h3>TimePicker Options</h3>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Option</th>
+                  <th>Default</th>
+                  <th>Detail</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>useEthiopianTime</code></td>
+                  <td><code>true</code></td>
+                  <td>Uses traditional 6-hour offset (6 AM = 12:00).</td>
+                </tr>
+                <tr>
+                  <td><code>twelveHour</code></td>
+                  <td><code>true</code></td>
+                  <td>Enables 12-hour cycle with Day/Night labels.</td>
+                </tr>
+                <tr>
+                  <td><code>darkMode</code></td>
+                  <td><code>false</code></td>
+                  <td>Enables dark theme for the picker.</td>
+                </tr>
+                <tr>
+                  <td><code>locale</code></td>
+                  <td><code>'am'</code></td>
+                  <td>Label language (Amharic/English).</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </section>
 
         <section id="api-datepicker">
@@ -658,6 +723,25 @@ picker.options.onChange = (date) => {
 
           <h3><code>open()</code> / <code>close()</code></h3>
           <p>Manually trigger the picker visibility.</p>
+        </section>
+
+        <section id="api-timepicker">
+          <h2>TimePicker API</h2>
+
+          <h3><code>confirm()</code></h3>
+          <p>Programmatically accept the current selection and close.</p>
+
+          <h3><code>setHour(h)</code> / <code>setMinute(m)</code></h3>
+          <p>Sets the internal time state (1-12 for hours, 0-59 for minutes).</p>
+
+          <h3><code>onChange</code> Callback Data</h3>
+          <div class="code-container">
+            <pre><code>{
+  ethiopian: { hours: 4, minutes: 20, period: "ቀን" },
+  gregorian: { hours: 10, minutes: 20 },
+  formatted: "04:20 ቀን"
+}</code></pre>
+          </div>
         </section>
 
         <section id="example-react">
@@ -709,6 +793,7 @@ const EthDatePicker = ({ onDateSelect }) => {
   <!-- Scripts (Local) -->
   <script src="js/ethiopian-calendar.js?v=3"></script>
   <script src="js/datepicker.js?v=3"></script>
+  <script src="js/timepicker.js?v=1"></script>
 
   <script>
     // --- Live Demo Integration ---
@@ -726,6 +811,13 @@ const EthDatePicker = ({ onDateSelect }) => {
       const log = document.getElementById('demo-log');
       log.innerHTML = `<strong>Selected:</strong> ${date.formatted} <br> <strong>JSON:</strong> <code>${JSON.stringify({ year: date.year, month: date.month, day: date.day })}</code>`;
     }
+
+    // --- Time Picker Demo ---
+    const demoTime = new EthiopianTimePicker('#demo-time', {
+      onChange: (time) => {
+        document.getElementById('time-log').innerHTML = `<strong>Selected:</strong> ${time.formatted} <br> <strong>JSON:</strong> <code>${JSON.stringify(time)}</code>`;
+      }
+    });
 
     // --- Theme Toggle ---
     const themeToggle = document.getElementById('themeToggle');
@@ -745,6 +837,10 @@ const EthDatePicker = ({ onDateSelect }) => {
         if (isDark) p.container.classList.add('dark-mode');
         else p.container.classList.remove('dark-mode');
       });
+
+      demoTime.options.darkMode = isDark;
+      if (isDark) demoTime.container.classList.add('dark-mode');
+      else demoTime.container.classList.remove('dark-mode');
     });
 
     // Init theme
@@ -758,6 +854,8 @@ const EthDatePicker = ({ onDateSelect }) => {
           p.options.darkMode = true;
           p.container.classList.add('dark-mode');
         });
+        demoTime.options.darkMode = true;
+        demoTime.container.classList.add('dark-mode');
       }, 100);
     }
 
