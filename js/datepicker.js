@@ -38,6 +38,7 @@ class EthiopianDatePicker {
 
         // State
         this.isOpen = false;
+        this.isYearView = false;
         this.selectedDate = null;
         this.currentView = this.calendar.today();
 
@@ -105,6 +106,14 @@ class EthiopianDatePicker {
         const monthYearDisplay = document.createElement('div');
         monthYearDisplay.className = 'ethio-month-year';
         this.monthYearDisplay = monthYearDisplay;
+
+        // Make year clickable
+        monthYearDisplay.addEventListener('click', (e) => {
+            if (e.target.classList.contains('year-segment') || e.target.classList.contains('year-range')) {
+                e.stopPropagation(); // Prevent closing when element is removed from DOM
+                this.toggleYearView();
+            }
+        });
 
         // Next month button
         const nextBtn = document.createElement('button');
@@ -184,8 +193,10 @@ class EthiopianDatePicker {
      * Render calendar days
      */
     renderDays() {
+        this.isYearView = false;
         const days = this.calendar.getMonthDays(this.currentView.year, this.currentView.month);
         this.daysContainer.innerHTML = '';
+        this.daysContainer.className = 'ethio-days'; // Ensure correct class
 
         days.forEach((dayData, index) => {
             const dayElement = document.createElement('button');
@@ -245,7 +256,46 @@ class EthiopianDatePicker {
      */
     updateMonthYearDisplay() {
         const monthName = this.calendar.getMonthName(this.currentView.month, this.options.locale);
-        this.monthYearDisplay.textContent = `${monthName} ${this.currentView.year}`;
+        this.monthYearDisplay.innerHTML = `<span>${monthName}</span> <span class="year-segment">${this.currentView.year}</span>`;
+    }
+
+    /**
+     * Toggle between month and year views
+     */
+    toggleYearView() {
+        this.isYearView = !this.isYearView;
+        if (this.isYearView) {
+            this.renderYearGrid();
+        } else {
+            this.renderDays();
+        }
+    }
+
+    /**
+     * Render a grid of years for quick selection
+     */
+    renderYearGrid() {
+        this.daysContainer.innerHTML = '';
+        this.daysContainer.className = 'ethio-year-grid';
+
+        const currentYear = this.currentView.year;
+        const startYear = currentYear - 12;
+        const endYear = currentYear + 12;
+
+        for (let y = startYear; y <= endYear; y++) {
+            const yearBtn = document.createElement('button');
+            yearBtn.className = 'ethio-year-cell';
+            if (y === currentYear) yearBtn.classList.add('selected');
+            yearBtn.textContent = y;
+            yearBtn.addEventListener('click', () => {
+                this.currentView.year = y;
+                this.renderDays();
+            });
+            this.daysContainer.appendChild(yearBtn);
+        }
+
+        // Update display to show range
+        this.monthYearDisplay.innerHTML = `<span class="year-range">${startYear} - ${endYear}</span>`;
     }
 
     /**
@@ -277,6 +327,11 @@ class EthiopianDatePicker {
      * Navigate to previous month
      */
     previousMonth() {
+        if (this.isYearView) {
+            this.currentView.year -= 25;
+            this.renderYearGrid();
+            return;
+        }
         if (this.currentView.month === 1) {
             this.currentView.month = 13;
             this.currentView.year--;
@@ -290,6 +345,11 @@ class EthiopianDatePicker {
      * Navigate to next month
      */
     nextMonth() {
+        if (this.isYearView) {
+            this.currentView.year += 25;
+            this.renderYearGrid();
+            return;
+        }
         if (this.currentView.month === 13) {
             this.currentView.month = 1;
             this.currentView.year++;
