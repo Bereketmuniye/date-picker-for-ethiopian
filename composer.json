@@ -55,7 +55,7 @@
     "archive": {
         "exclude": [
             "/node_modules",
-            "/dist",
+            "/dist",    
             "/tests",
             ".git",
             ".gitignore",
