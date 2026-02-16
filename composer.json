@@ -1,0 +1,77 @@
+{
+    "name": "bekim2121/ethiopian-datepicker",
+    "description": "A professional, accurate Ethiopian (Ge'ez) calendar date picker with bilingual support (Amharic/English), dark mode, and holiday highlighting",
+    "version": "1.1.6",
+    "type": "library",
+    "keywords": [
+        "ethiopian",
+        "calendar",
+        "datepicker",
+        "amharic",
+        "geez",
+        "date-picker",
+        "ethiopian-calendar",
+        "datetime",
+        "i18n",
+        "localization",
+        "php",
+        "date-conversion"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Bereket",
+            "email": "bekim2121@example.com",
+            "homepage": "https://github.com/Bereketmuniye"
+        }
+    ],
+    "homepage": "https://github.com/Bereketmuniye/date-picker-for-ethiopian",
+    "support": {
+        "issues": "https://github.com/Bereketmuniye/date-picker-for-ethiopian/issues",
+        "source": "https://github.com/Bereketmuniye/date-picker-for-ethiopian",
+        "docs": "https://github.com/Bereketmuniye/date-picker-for-ethiopian#readme"
+    },
+    "require": {
+        "php": ">=7.4",
+        "ext-calendar": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.0"
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+    },
+    "autoload": {
+        "psr-4": {
+            "EthiopianDatePicker\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "EthiopianDatePicker\\Tests\\": "tests/"
+        }
+    },
+    "archive": {
+        "exclude": [
+            "/node_modules",
+            "/dist",
+            "/tests",
+            ".git",
+            ".gitignore",
+            ".npmignore",
+            "package.json",
+            "package-lock.json",
+            "*.md.backup",
+            "documentation.html",
+            "index.html.backup"
+        ]
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-main": "1.1-dev"
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}

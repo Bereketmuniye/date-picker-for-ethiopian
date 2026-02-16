@@ -8,12 +8,17 @@ A professional Ethiopian calendar date and time picker with accurate Gregorian �
 
 ## Installation
 
-**NPM**:
+**JavaScript (NPM)**:
 ```bash
 npm install @bekim_2121/ethiopian-datepicker
 ```
 
-**CDN**:
+**PHP (Composer)**:
+```bash
+composer require bekim2121/ethiopian-datepicker
+```
+
+**JavaScript (CDN)**:
 ```html
 <!-- Replace VERSION with the latest version (e.g., 1.1.5) -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@bekim_2121/ethiopian-datepicker@VERSION/dist/ethiopian-datepicker.css">
@@ -22,6 +27,7 @@ npm install @bekim_2121/ethiopian-datepicker
 
 ## Quick Start
 
+### JavaScript Usage
 ```html
 <!-- Input element -->
 <input type="text" id="datepicker" placeholder="ቀን ይምረጡ..." readonly>
@@ -33,6 +39,26 @@ npm install @bekim_2121/ethiopian-datepicker
     darkMode: false
   });
 </script>
+```
+
+### PHP Usage
+```php
+<?php
+require 'vendor/autoload.php';
+
+use EthiopianDatePicker\EthiopianDatePicker;
+
+// Get current Ethiopian date
+$today = EthiopianDatePicker::today();
+echo "Today: " . EthiopianDatePicker::formatDate($today, 'amharic', 'long') . "\n";
+
+// Convert Gregorian to Ethiopian
+$ethiopianDate = EthiopianDatePicker::gregorianToEthiopian(2023, 9, 11);
+echo "Ethiopian date: " . EthiopianDatePicker::formatDate($ethiopianDate, 'english', 'long') . "\n";
+
+// Convert Ethiopian to Gregorian
+$gregorianDate = EthiopianDatePicker::ethiopianToGregorian(2016, 1, 1);
+echo "Gregorian date: " . implode('-', $gregorianDate) . "\n";
 ```
 
 ## Special Features
@@ -54,6 +80,7 @@ const age = calendar.calculateAge(2010, 5, 4);
 
 ## Configuration
 
+### JavaScript Configuration
 ```javascript
 new EthiopianDatePicker('#input', {
   locale: 'am',                    // Language ('am' or 'en')
@@ -69,6 +96,31 @@ new EthiopianDatePicker('#input', {
 });
 ```
 
+### PHP Configuration
+The PHP library doesn't require configuration - it's ready to use after installation:
+
+```php
+<?php
+require 'vendor/autoload.php';
+use EthiopianDatePicker\EthiopianDatePicker;
+
+// All methods are static - no instantiation needed
+$today = EthiopianDatePicker::today();
+
+// Format options
+$date = [2016, 1, 1];
+
+// Different language formats
+echo EthiopianDatePicker::formatDate($date, 'amharic', 'long');  // "1 መስከረም 2016"
+echo EthiopianDatePicker::formatDate($date, 'english', 'long');  // "1 Meskerem 2016"
+echo EthiopianDatePicker::formatDate($date, 'amharic', 'short'); // "2016-1-1"
+echo EthiopianDatePicker::formatDate($date, 'english', 'short'); // "2016-1-1"
+
+// Get month names
+$amharicMonths = EthiopianDatePicker::getAmharicMonths();
+$englishMonths = EthiopianDatePicker::getEnglishMonths();
+```
+
 ### Time Picker
 
 ```javascript
@@ -82,11 +134,23 @@ new EthiopianTimePicker('#input', {
 
 ## API
 
+### JavaScript API
 | Method | Description |
 | --- | --- |
 | `getSelectedDate()` | Returns the currently selected date object. |
 | `setDate(y, m, d)` | Sets the date programmatically. |
 | `open()` / `close()` | Manually control picker visibility. |
+
+### PHP API
+| Method | Description |
+| --- | --- |
+| `gregorianToEthiopian($year, $month, $day)` | Convert Gregorian to Ethiopian date |
+| `ethiopianToGregorian($year, $month, $day)` | Convert Ethiopian to Gregorian date |
+| `today()` | Get current Ethiopian date |
+| `formatDate($date, $language, $format)` | Format Ethiopian date for display |
+| `isLeapYear($year)` | Check if Ethiopian year is leap year |
+| `getAmharicMonths()` | Get month names in Amharic |
+| `getEnglishMonths()` | Get month names in English |
 
 ## Ethiopian Calendar Utilities
 

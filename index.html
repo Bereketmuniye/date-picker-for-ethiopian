@@ -571,21 +571,27 @@
 
         <section id="installation">
           <h2>Installation</h2>
-          <p>Choose the installation method that fits your workflow. For most production environments, we recommend NPM.
+          <p>Choose the installation method that fits your workflow. We support both JavaScript and PHP environments.
           </p>
 
-          <h3>NPM</h3>
+          <h3>JavaScript (NPM)</h3>
           <div class="code-container">
             <div class="code-header"><span>Terminal</span><button class="copy-btn">Copy</button></div>
             <pre><code>npm i @bekim_2121/ethiopian-datepicker</code></pre>
           </div>
 
-          <h3>CDN</h3>
+          <h3>PHP (Composer)</h3>
+          <div class="code-container">
+            <div class="code-header"><span>Terminal</span><button class="copy-btn">Copy</button></div>
+            <pre><code>composer require bekim2121/ethiopian-datepicker</code></pre>
+          </div>
+
+          <h3>JavaScript (CDN)</h3>
           <p>Import styles and scripts directly in your HTML. Ideal for quick prototyping or static sites.</p>
           <div class="code-container">
             <div class="code-header"><span>HTML</span><button class="copy-btn">Copy</button></div>
-            <pre><code>&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@bekim_2121/ethiopian-datepicker@1.0.3/dist/ethiopian-datepicker.css"&gt;
-&lt;script src="https://cdn.jsdelivr.net/npm/@bekim_2121/ethiopian-datepicker@1.0.3/dist/ethiopian-datepicker.js"&gt;&lt;/script&gt;</code></pre>
+            <pre><code>&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@bekim_2121/ethiopian-datepicker@1.1.6/dist/ethiopian-datepicker.css"&gt;
+&lt;script src="https://cdn.jsdelivr.net/npm/@bekim_2121/ethiopian-datepicker@1.1.6/dist/ethiopian-datepicker.js"&gt;&lt;/script&gt;</code></pre>
           </div>
         </section>
 
@@ -593,6 +599,7 @@
           <h2>Quick Start</h2>
           <p>Initialize your first Ethiopian date picker in seconds.</p>
 
+          <h3>JavaScript Quick Start</h3>
           <div class="code-container">
             <div class="code-header"><span>Javascript</span><button class="copy-btn">Copy</button></div>
             <pre><code>// 1. Identify your input element
@@ -608,6 +615,22 @@ const picker = new EthiopianDatePicker(input, {
 picker.options.onChange = (date) => {
   console.log('User selected:', date.formatted);
 };</code></pre>
+          </div>
+
+          <h3>PHP Quick Start</h3>
+          <div class="code-container">
+            <div class="code-header"><span>PHP</span><button class="copy-btn">Copy</button></div>
+            <pre><code>&lt;?php
+require 'vendor/autoload.php';
+use EthiopianDatePicker\EthiopianDatePicker;
+
+// Get current Ethiopian date
+$today = EthiopianDatePicker::today();
+echo "Today: " . EthiopianDatePicker::formatDate($today, 'amharic', 'long');
+
+// Convert Gregorian to Ethiopian
+$ethiopianDate = EthiopianDatePicker::gregorianToEthiopian(2023, 9, 11);
+echo "Ethiopian date: " . EthiopianDatePicker::formatDate($ethiopianDate, 'english', 'long');</code></pre>
           </div>
 
           <h3>Time Picker Quick Start</h3>
